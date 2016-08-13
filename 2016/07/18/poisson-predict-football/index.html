@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="AI,GLM,广义线性模型,泊松分布,足彩预测," />
 
 
 
@@ -84,12 +84,33 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jasonfu's Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="一、什么是泊松分布泊松分布（Poisson distribution）是一种统计与概率学里常见到的离散概率分布，用于描述单位时间内随机事件发生的次数。如某医院平均每小时出生的婴儿个数，某网站平均每分钟的访问次数等。在我们接下来将要进行的预测中，对于足球比赛对阵双方，任一球队在90分钟常规时间内的进球数也是近似地服从泊松分布。
+泊松分布的概率函数为：
+
+其中，λ≥0，表示事件的频率，即单位时间内随机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用泊松分布预测足球比赛的结果">
+<meta property="og:url" content="http://yoursite.com/2016/07/18/poisson-predict-football/index.html">
 <meta property="og:site_name" content="Jasonfu's Blog">
+<meta property="og:description" content="一、什么是泊松分布泊松分布（Poisson distribution）是一种统计与概率学里常见到的离散概率分布，用于描述单位时间内随机事件发生的次数。如某医院平均每小时出生的婴儿个数，某网站平均每分钟的访问次数等。在我们接下来将要进行的预测中，对于足球比赛对阵双方，任一球队在90分钟常规时间内的进球数也是近似地服从泊松分布。
+泊松分布的概率函数为：
+
+其中，λ≥0，表示事件的频率，即单位时间内随机">
+<meta property="og:image" content="http://yoursite.com/img/poission.png">
+<meta property="og:image" content="http://yoursite.com/img/glm_formula.png">
+<meta property="og:image" content="http://yoursite.com/img/pic1.png">
+<meta property="og:image" content="http://yoursite.com/img/pic2.png">
+<meta property="og:image" content="http://yoursite.com/img/pic3.png">
+<meta property="og:image" content="http://yoursite.com/img/pic4.png">
+<meta property="og:image" content="http://yoursite.com/img/pic5.png">
+<meta property="og:updated_time" content="2016-08-13T03:54:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jasonfu's Blog">
+<meta name="twitter:title" content="如何使用泊松分布预测足球比赛的结果">
+<meta name="twitter:description" content="一、什么是泊松分布泊松分布（Poisson distribution）是一种统计与概率学里常见到的离散概率分布，用于描述单位时间内随机事件发生的次数。如某医院平均每小时出生的婴儿个数，某网站平均每分钟的访问次数等。在我们接下来将要进行的预测中，对于足球比赛对阵双方，任一球队在90分钟常规时间内的进球数也是近似地服从泊松分布。
+泊松分布的概率函数为：
+
+其中，λ≥0，表示事件的频率，即单位时间内随机">
+<meta name="twitter:image" content="http://yoursite.com/img/poission.png">
 
 
 
@@ -110,9 +131,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/18/poisson-predict-football/"/>
 
-  <title> Jasonfu's Blog </title>
+  <title> 如何使用泊松分布预测足球比赛的结果 | Jasonfu's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -133,9 +154,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -212,9 +231,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -234,10 +253,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/07/18/poisson-predict-football/" itemprop="url">
-                  如何使用泊松分布预测足球比赛的结果
-                </a>
+                如何使用泊松分布预测足球比赛的结果
               
             
           </h1>
@@ -277,9 +293,7 @@
       
 
       
-        
-          
-            <h1 id="一、什么是泊松分布"><a href="#一、什么是泊松分布" class="headerlink" title="一、什么是泊松分布"></a>一、什么是泊松分布</h1><p>泊松分布（Poisson distribution）是一种统计与概率学里常见到的离散概率分布，用于描述单位时间内随机事件发生的次数。如某医院平均每小时出生的婴儿个数，某网站平均每分钟的访问次数等。在我们接下来将要进行的预测中，对于足球比赛对阵双方，任一球队在90分钟常规时间内的进球数也是近似地服从泊松分布。</p>
+        <h1 id="一、什么是泊松分布"><a href="#一、什么是泊松分布" class="headerlink" title="一、什么是泊松分布"></a>一、什么是泊松分布</h1><p>泊松分布（Poisson distribution）是一种统计与概率学里常见到的离散概率分布，用于描述单位时间内随机事件发生的次数。如某医院平均每小时出生的婴儿个数，某网站平均每分钟的访问次数等。在我们接下来将要进行的预测中，对于足球比赛对阵双方，任一球队在90分钟常规时间内的进球数也是近似地服从泊松分布。</p>
 <p>泊松分布的概率函数为：</p>
 <p><img src="/img/poission.png" alt="poission"></p>
 <p>其中，λ≥0，表示事件的频率，即单位时间内随机事件的平均发生率；k∈{0,1,2,3…}，表示随机事件的实际发生次数；e是自然常数。泊松分布的期望（均值）和方差相等，均为λ。泊松分布属于指数分布族，对应的泊松回归是广义线性模型的一种，其连接函数为log函数，也即是说，其因变量Y和自变量X之间的关系为：</p>
@@ -303,36 +317,53 @@
 <p>计算的结果是，法国队取胜的概率为0.4257531，葡萄牙队取胜的概率为0.2926639，打平的概率为0.2815831。这与比赛的实际结果相差甚远，在实际的预测使用中，需要结合比分预测等进行综合考虑判断，虽然这个判断过程充满了无数的运气成分，哈哈！</p>
 <h1 id="三、结语"><a href="#三、结语" class="headerlink" title="三、结语"></a>三、结语</h1><p>对足球比赛的结果进行预测，数据很重要，模型很重要，如果非得说出个具体的重要性，那就是：七分靠数据，三分靠模型，剩下的九十分靠运气。哈哈！</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/AI/" rel="tag">#AI</a>
+          
+            <a href="/tags/GLM/" rel="tag">#GLM</a>
+          
+            <a href="/tags/广义线性模型/" rel="tag">#广义线性模型</a>
+          
+            <a href="/tags/泊松分布/" rel="tag">#泊松分布</a>
+          
+            <a href="/tags/足彩预测/" rel="tag">#足彩预测</a>
+          
+        </div>
       
 
       
+
       
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -340,6 +371,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -359,8 +394,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -403,6 +447,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、什么是泊松分布"><span class="nav-number">1.</span> <span class="nav-text">一、什么是泊松分布</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、预测过程"><span class="nav-number">2.</span> <span class="nav-text">二、预测过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-数据整理"><span class="nav-number">2.1.</span> <span class="nav-text">1. 数据整理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-比分预测"><span class="nav-number">2.2.</span> <span class="nav-text">2. 比分预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-胜负平预测"><span class="nav-number">2.3.</span> <span class="nav-text">3. 胜负平预测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、结语"><span class="nav-number">3.</span> <span class="nav-text">三、结语</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -499,6 +554,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
