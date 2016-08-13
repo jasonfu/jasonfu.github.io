@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据分析,数据库技术,SQL," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,28 +84,12 @@
 
 
 
-<meta name="description" content="有这样一张数据库表t_paylist，存储用户的消费记录，如下图所示：
-
-每行记录表示用户的一次购物记录，shop表示用户发生购物行为的商店，paynum表示消费的金额，单位为元，paytime表示购物的时间，以值为20140406212233的paytime为例，其表示2014年4月6日21时22分33秒。
-现有一个需要使用SQL来完成的数据统计需求：需要统计每个用户每个月在以下消费区间[0,">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Case when使用案例">
-<meta property="og:url" content="http://yoursite.com/2014/06/29/case-when-use-case/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jasonfu's Blog">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Jasonfu's Blog">
-<meta property="og:description" content="有这样一张数据库表t_paylist，存储用户的消费记录，如下图所示：
-
-每行记录表示用户的一次购物记录，shop表示用户发生购物行为的商店，paynum表示消费的金额，单位为元，paytime表示购物的时间，以值为20140406212233的paytime为例，其表示2014年4月6日21时22分33秒。
-现有一个需要使用SQL来完成的数据统计需求：需要统计每个用户每个月在以下消费区间[0,">
-<meta property="og:image" content="http://yoursite.com/img/case-when-use-case1.png">
-<meta property="og:image" content="http://yoursite.com/img/case-when-use-case2.png">
-<meta property="og:updated_time" content="2016-08-13T09:12:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Case when使用案例">
-<meta name="twitter:description" content="有这样一张数据库表t_paylist，存储用户的消费记录，如下图所示：
-
-每行记录表示用户的一次购物记录，shop表示用户发生购物行为的商店，paynum表示消费的金额，单位为元，paytime表示购物的时间，以值为20140406212233的paytime为例，其表示2014年4月6日21时22分33秒。
-现有一个需要使用SQL来完成的数据统计需求：需要统计每个用户每个月在以下消费区间[0,">
-<meta name="twitter:image" content="http://yoursite.com/img/case-when-use-case1.png">
+<meta name="twitter:title" content="Jasonfu's Blog">
 
 
 
@@ -126,9 +110,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2014/06/29/case-when-use-case/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
-  <title> Case when使用案例 | Jasonfu's Blog </title>
+  <title> Jasonfu's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -149,7 +133,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -226,9 +212,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
   
@@ -248,7 +234,231 @@
             
             
               
-                Case when使用案例
+                
+                <a class="post-title-link" href="/2014/10/27/learn-data-visualization/" itemprop="url">
+                  认识数据可视化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-10-27T17:15:48+08:00" content="2014-10-27">
+              2014-10-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/10/27/learn-data-visualization/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/27/learn-data-visualization/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>做数据分析有时候需要对数据进行可视化展示，Excel是常用的数据可视化软件，对于常见的图表功能都能很好的支持，但Excel仅仅只是一个桌面端的数据可视化软件，对于网页端的数据可视化就显得无能为力，对于一些诸如Treemap树状图、和弦图、力导向布局图等之类的高级数据可视化需求也是支持不了的。下面我们就要讲讲Web端的数据可视化开发，以及介绍一些高级数据可视化的常用JS图表库。</p>
+<p>目前主流的Web端数据可视化解决方案基本都是基于JavaScript的，基于Flask的已经越来越少。HighCharts是一个用纯JavaScript编写的功能强大的图表库，支持柱状图、折线图、饼状图、散点图等常见的图表类型，非常出名，使用也很广泛。HighCharts虽然是国外的，但其中文社区已经很成熟，相关资料都可以查到中文的。国内比较出名的图表库有百度的ECharts，它也是纯JavaScript实现的。ECharts除了支持常见的柱状图之类的图表类型之外，还支持和弦图、力导向布局图、地图等高级图表类型。HighCharts和ECharts这两个图表库的使用都相当简单，阅读相关的API文档就可以快速上手，它们主要都是支持常见的基础图表功能开发。</p>
+<p><img src="/img/ldv1.png" alt="HighCharts的折线图" title="HighCharts的折线图"></p>
+<p><img src="/img/ldv2.png" alt="ECharts的柱状图" title="ECharts的柱状图"></p>
+<p>只有这些常见的基础图表功能是远远不够的，有时候我们还需要一些更加高级的数据可视化功能来生动、简明地展示复杂数据之间的关系，例如Treemap、Timeline、Heatmap、网络图等。D3 就是其中最流行的可视化库之一，支持很多高级的数据可视化功能，而且展示效果也都很炫，但较于前面的HighCharts或者ECharts，使用起来也相对要难。</p>
+<p><img src="/img/ldv3.png" alt="D3的和弦图" title="D3的和弦图"></p>
+<p>国内和D3的功能做得比较类似的是淘宝的dataV.js，但所支持的图表类型没有D3那么丰富，而且效果也相对要差。</p>
+<p><img src="/img/ldv4.png" alt="dataV的效果演示" title="dataV的效果演示"></p>
+<p>数据可视化的工具远不止上面提到的这些，还有iCharts、Google Charts、Crystal Reports、Bonsai、AnyChart等等很多，虽然同质化的比较多，但也各有特点，用户体验的不同主要体现在数据的加载速度和图表的展示效果。在实际的开发使用中，选择哪一个数据可视化工具可就要结合具体的开发需求和偏好来考虑了。例如，在开发移动端的图表时，考虑到终端设备的适配问题，有时候就不会考虑使用HighCharts这种前端的图表工具，而是会偏向于选择诸如JFreeChart之类的偏后端的图表绘制工具，在服务器端以图片的形式生成图表，然后发送到前端页面进行展示，以方便页面的适配。</p>
+<p>可能有人会质疑高级数据可视化的应用价值与开发成本之间的问题，用几个数据就可以说明的问题干嘛非得要花这么多时间去开发可视化的图表来展示，这么质疑其实也没错，但是要想到人是一种视觉动物，对图像留下的印象往往要比文字的要深，加上有些数据之间的关系单纯用数据和文字来说明是很费力的，这时候一个简单、生动的图表就有其存在的价值了。例如要描述一个国家的出口产品的比重，用一组数据就可以表述，但要是使用Treemap来展示的话可能就会显得更加的直观和生动，有助于快速地定位问题和发现重点，要是同时加上一些交互行为的话那就更perfect了，例如下面展示2009年贝宁出口产品构成的Treemap图：</p>
+<p><img src="/img/ldv5.png" alt="Treemap：2009年贝宁出口产品构成" title="Treemap：2009年贝宁出口产品构成"></p>
+<p><img src="/img/ldv6.png" alt="使用TimelineJS制作的一个历史事件时间轴" title="使用TimelineJS制作的一个历史事件时间轴"></p>
+<p>关于数据可视化的更多介绍以及更多的数据可视化案例介绍可以阅读这个博客：  <a href="http://blog.xiqiao.info/tag/infographics" target="_blank" rel="external">http://blog.xiqiao.info/tag/infographics</a></p>
+<p>欲想了解更多的数据可视化工具及其使用效果，可以访问这个链接：<a href="http://selection.datavisualization.ch/" target="_blank" rel="external">http://selection.datavisualization.ch/</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/07/27/case-when-muti-field/" itemprop="url">
+                  Case when如何返回多个字段
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-07-27T16:41:48+08:00" content="2014-07-27">
+              2014-07-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/07/27/case-when-muti-field/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/27/case-when-muti-field/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用case when语句从数据库中提取数据有时候会遇到需要返回多个字段的情况，但case when是不支持返回两个或以上的多个字段的，此时可以考虑使用字符串连接符“||”来解决问题。</p>
+<p>假设有两张数据库表：用户信息表t_user_info和用户的消费记录表t_paylist，如下表1、表2所示：</p>
+<p><img src="/img/case-when-muti-field1.jpg" alt="表1 t_user_info" title="表1 t_user_info"></p>
+<p><img src="/img/case-when-muti-field2.jpg" alt="表2 t_paylist" title="表2 t_paylist"></p>
+<p>t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用户在各个商户的消费记录，以表中的第一行为例，表示编号为1000的用户在位于后海大道的商户711消费了15元。</p>
+<p>现在从表t_user_info中提取10个用户，然后计算每个用户总共在多少个不同的商户有过消费行为以及总的消费金额，位于不同地方的相同连锁店算不同的商户。以表2中编号为1000的用户为例，计算返回的结果需为：商户数 3，总消费金额 169。在写SQL的时候需要注意的一个地方是，从表t_user_info中提取出来的10个用户可能个别用户并没有消费的记录，也即是说在表t_paylist中可能找不到对应的消费信息。</p>
+<p>这是一个需要根据userid进行group by计算的数据提取需求，由于部分用户可能没有消费记录，可以使用用户表left join消费记录表，而根据上面的需求，商户的区分需要根据shopname和shop_addr两个字段，且是在右表的userid为非空的时候才计算，这个可以使用case when进行判断，当右表的userid为非空时返回shopname和shop_addr两个字段。本文最开始的时候提到，case when是不支持返回两个或以上的多个字段的，此时可以使用字符串连接符“||”这个小技巧来连接shopname和shop_addr两个字段然后返回，以区分不同的商户。最终的SQL实现代码如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> l.userid,</div><div class="line">       <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> r.userid <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> r.shopname || r.shop_addr <span class="keyword">END</span>)) <span class="keyword">AS</span> shop_count,</div><div class="line">       <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> r.userid <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> r.paynum <span class="keyword">END</span>) <span class="keyword">AS</span> paynum_total</div><div class="line"><span class="keyword">FROM</span></div><div class="line">(</div><div class="line">    <span class="keyword">SELECT</span> userid</div><div class="line">    <span class="keyword">FROM</span>  t_user_info</div><div class="line">    <span class="keyword">LIMIT</span> <span class="number">10</span></div><div class="line">)l <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> t_paylist r <span class="keyword">ON</span> l.userid = r.userid</div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> l.userid</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/06/29/case-when-use-case/" itemprop="url">
+                  Case when使用案例
+                </a>
               
             
           </h1>
@@ -295,7 +505,9 @@
       
 
       
-        <p>有这样一张数据库表t_paylist，存储用户的消费记录，如下图所示：</p>
+        
+          
+            <p>有这样一张数据库表t_paylist，存储用户的消费记录，如下图所示：</p>
 <p><img src="/img/case-when-use-case1.png" alt="case-when-use-case1.png"></p>
 <p>每行记录表示用户的一次购物记录，shop表示用户发生购物行为的商店，paynum表示消费的金额，单位为元，paytime表示购物的时间，以值为20140406212233的paytime为例，其表示2014年4月6日21时22分33秒。</p>
 <p>现有一个需要使用SQL来完成的数据统计需求：需要统计每个用户每个月在以下消费区间[0, 20]、(20, 40] 、(40, +∞)的总消费金额和总消费笔数，结果类似下表所示：</p>
@@ -312,63 +524,40 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">case when username = ‘kaka’ and shop = ‘amazon’ then ‘yes’</div></pre></td></tr></table></figure>
 <p>诸如此类。</p>
 
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/数据分析/" rel="tag">#数据分析</a>
-          
-            <a href="/tags/数据库技术/" rel="tag">#数据库技术</a>
-          
-            <a href="/tags/SQL/" rel="tag">#SQL</a>
-          
-        </div>
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2014/07/27/case-when-muti-field/" rel="prev" title="Case when如何返回多个字段">
-                Case when如何返回多个字段 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -376,14 +565,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2014/06/29/case-when-use-case/"
-           data-title="Case when使用案例" data-url="http://yoursite.com/2014/06/29/case-when-use-case/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -403,17 +584,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/img/avatar.jpg"
@@ -456,17 +628,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -563,10 +724,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
