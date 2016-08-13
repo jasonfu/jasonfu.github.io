@@ -574,6 +574,149 @@ sum(dskellam(<span class="number">1</span>:<span class="number">50</span>, <span
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/01/11/python-multi-thread/" itemprop="url">
+                  python的多线程使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-01-11T15:49:40+08:00" content="2015-01-11">
+              2015-01-11
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/11/python-multi-thread/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/11/python-multi-thread/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Python中关于多线程的操作可以使用threading模块或者thread模块来实现，其中thread模块在python 3中被命名为_thread，这种更改是为了更进一步明确表示与thread模块相关的更多的是线程的具体实现细节，在一般的代码中不再推荐使用。</p>
+<h1 id="Thread模块"><a href="#Thread模块" class="headerlink" title="Thread模块"></a>Thread模块</h1><p>Thread模块使用函数式的方式来创建线程，其调用函数start_new_thread ( function, args[, kwargs] )来产生新的线程，该函数各参数的含义如下：</p>
+<blockquote>
+<ul>
+<li>function – 线程函数。</li>
+<li>args – 传递给线程函数的参数，必须是个tuple类型。</li>
+<li>kwargs – 可选参数。</li>
+</ul>
+</blockquote>
+<p>使用示例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"> <span class="comment"># -*-coding:utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> thread</div><div class="line"><span class="keyword">import</span> time</div><div class="line"> </div><div class="line"> <span class="comment"># 定义一个需要多线程运行的函数</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_hello</span><span class="params">(threadName)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"hello, %s!"</span> % ( threadName)</div><div class="line"> </div><div class="line"> <span class="comment"># 创建两个线程</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_multi_thread</span><span class="params">()</span>:</span></div><div class="line">   thread.start_new_thread( print_hello, (<span class="string">"Thread-1"</span>, ) )</div><div class="line">   thread.start_new_thread( print_hello, (<span class="string">"Thread-2"</span>, ) )</div><div class="line"> </div><div class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</div><div class="line">   test_multi_thread()</div><div class="line">   time.sleep(<span class="number">6</span>)     <span class="comment">#   等待线程运行结束</span></div></pre></td></tr></table></figure></p>
+<p>Thread模块提供了多线程底层支持模块，以低级原始的方式来处理和控制线程，更多展示的是操作系统层面的原始操作和处理，使用起来较为复杂，已不推荐使用。</p>
+<h1 id="Threading模块"><a href="#Threading模块" class="headerlink" title="Threading模块"></a>Threading模块</h1><p>Threading模块使用类来包装线程对象，其创建线程的方式有两种，一种是直接从threading.Thread继承，然后重写<strong>init</strong>方法和run方法，另一种是将函数传递到threading.Thread对象中执行。</p>
+<p>方法一创建线程的示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"> <span class="comment"># -*-coding:utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> threading</div><div class="line"> </div><div class="line"> <span class="comment"># 定义一个需要多线程运行的函数</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_hello</span><span class="params">(threadName)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"hello, %s!"</span> % ( threadName)</div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestThread</span><span class="params">(threading.Thread)</span>:</span> <span class="comment">#继承父类threading.Thread</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, threadName)</span>:</span></div><div class="line">        threading.Thread.__init__(self)</div><div class="line">        self.name = threadName</div><div class="line"> </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></div><div class="line">        print_hello(self.name)</div><div class="line"> </div><div class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</div><div class="line">    tObj1 = TestThread(<span class="string">'Thread-1'</span>)</div><div class="line">    tObj2 = TestThread(<span class="string">'Thread-2'</span>)</div><div class="line">    tObj1.start()</div><div class="line">    tObj2.start()</div></pre></td></tr></table></figure>
+<p>方法二创建线程的示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> <span class="comment"># -*-coding:utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> threading</div><div class="line"> </div><div class="line"> <span class="comment"># 定义一个需要多线程运行的函数</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_hello</span><span class="params">(threadName)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"hello, %s!"</span> % ( threadName)</div><div class="line"> </div><div class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</div><div class="line">    tFunc1 = threading.Thread(target = print_hello, args = (<span class="string">'Thread-1'</span>, ))</div><div class="line">    tFunc2 = threading.Thread(target = print_hello, args = (<span class="string">'Thread-2'</span>, ))</div><div class="line">    tFunc1.start()</div><div class="line">    tFunc2.start()</div></pre></td></tr></table></figure>
+<p>其中，threading.Thread类的构造函数定义如下：</p>
+<blockquote>
+<p>class threading.Thread(group=None, target=None, name=None, args=(), kwargs={})</p>
+<ul>
+<li>args： tuple参数</li>
+<li>group： 留作ThreadGroup扩展使用，一般没什么用</li>
+<li>target：新线程的任务函数名</li>
+<li>name： 线程名，一般也没什么用</li>
+<li>kwargs：dictionary参数</li>
+</ul>
+</blockquote>
+<p>threading.Thread类的成员变量和函数如下：</p>
+<blockquote>
+<ul>
+<li>start() 启动一个线程</li>
+<li>run() 线程执行体，也是一般要重写的内容</li>
+<li>join([time]) 等待线程结束，主要用来防止主线程在子线程还未运行结束时就直接退出，导致程序功能运行不全。即是说，join()可以通知主线程等待这个线程结束后，才可以执行下一条指令。</li>
+<li>name 线程名</li>
+<li>ident 线程ID</li>
+<li>daemon 是否守护线程</li>
+<li>isAlive()、is_alive() 线程是否存活</li>
+<li>getName()、setName() Name的get&amp;set方法</li>
+<li>isDaemon()、setDaemon() daemon的get&amp;set方法</li>
+</ul>
+</blockquote>
+<h1 id="多线程在数据分析系统的应用"><a href="#多线程在数据分析系统的应用" class="headerlink" title="多线程在数据分析系统的应用"></a>多线程在数据分析系统的应用</h1><p>开发了一个数据分析的网站系统，其中有一个功能是用户可以上传数据包分析数据，分析结果同样以数据包的形式返回给用户。分析数据的过程可能比较久，系统无法将结果即时反馈给用户，如果系统只有一个线程，那么系统将只能一直停留在数据包上传页面卡着，直至结果数据包的返回，这对于系统的处理效率以及用户的体验都是非常差的。</p>
+<p>这时候多线程技术就可以派上用场了！系统的主线程为每个数据分析任务创建一个新的线程，每个执行数据分析任务的线程在执行完成之后，将已经执行完成的提醒信息写入到数据库。系统提供一个查看任务执行完成与否的页面，并通过将数据库中的提醒信息读取出来呈现给用户，让用户查看是否可以下载所提交的数据分析任务的结果数据集。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -615,7 +758,7 @@ sum(dskellam(<span class="number">1</span>:<span class="number">50</span>, <span
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -625,7 +768,7 @@ sum(dskellam(<span class="number">1</span>:<span class="number">50</span>, <span
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
