@@ -306,9 +306,121 @@
 <p><img src="/img/pic5.png" alt="pic5" title="图5 比赛不同比分结果的概率"></p>
 <p>其中，“1:1”比分的概率就是将法国队进一球的概率乘以葡萄牙队进一球的概率，以此类推。</p>
 <h2 id="3-胜负平预测"><a href="#3-胜负平预测" class="headerlink" title="3. 胜负平预测"></a>3. 胜负平预测</h2><p>预测比赛对阵双方胜负平结果的概率，其实就是预测双方的进球差（主队进球数减去客队进球数）概率，有三种情况：进球差 &gt; 0 （主队进球数 &gt; 客队进球数）、进球差 = 0（主队进球数 = 客队进球数）以及进球差 &lt; 0（主队进球数 &lt; 客队进球数）。</p>
-<p>可以使用skellam分布（Skellam distribution）来预测上述结果。Skellam分布是两个独立Poisson分布随机变量差的分布，在假设对阵双方的进球数是相互独立的前提下，我们可以计算双方进球差（随机变量差）的概率。计算代码如下：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(<span class="string">'skellam'</span>)</div><div class="line"> </div><div class="line"> <span class="comment"># 葡萄牙队胜:0.2926639</span></div><div class="line">sum(dskellam(-<span class="number">50</span>:-<span class="number">1</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))</div><div class="line"> </div><div class="line"> <span class="comment"># 平局: 0.2815831</span></div><div class="line">sum(dskellam(<span class="number">0</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))</div><div class="line"> </div><div class="line"> <span class="comment"># 法国队胜: 0.4257531</span></div><div class="line">sum(dskellam(<span class="number">1</span>:<span class="number">50</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))</div></pre></td></tr></table></figure></p>
+<p>可以使用skellam分布（Skellam distribution）来预测上述结果。Skellam分布是两个独立Poisson分布随机变量差的分布，在假设对阵双方的进球数是相互独立的前提下，我们可以计算双方进球差（随机变量差）的概率。计算代码如下：  </p>
+<pre><code class="r"><span class="keyword">require</span>(<span class="string">'skellam'</span>)
+
+ <span class="comment"># 葡萄牙队胜:0.2926639</span>
+sum(dskellam(-<span class="number">50</span>:-<span class="number">1</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))
+
+ <span class="comment"># 平局: 0.2815831</span>
+sum(dskellam(<span class="number">0</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))
+
+ <span class="comment"># 法国队胜: 0.4257531</span>
+sum(dskellam(<span class="number">1</span>:<span class="number">50</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))
+</code></pre>
 <p>计算的结果是，法国队取胜的概率为0.4257531，葡萄牙队取胜的概率为0.2926639，打平的概率为0.2815831。这与比赛的实际结果相差甚远，在实际的预测使用中，需要结合比分预测等进行综合考虑判断，虽然这个判断过程充满了无数的运气成分，哈哈！</p>
 <h1 id="三、结语"><a href="#三、结语" class="headerlink" title="三、结语"></a>三、结语</h1><p>对足球比赛的结果进行预测，数据很重要，模型很重要，如果非得说出个具体的重要性，那就是：七分靠数据，三分靠模型，剩下的九十分靠运气。哈哈！</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/02/29/spark-mllib-fast-in-action/" itemprop="url">
+                  spark-mllib-fast-in-action
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-29T15:09:22+08:00" content="2016-02-29">
+              2016-02-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/02/29/spark-mllib-fast-in-action/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/29/spark-mllib-fast-in-action/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MLlib是Spark的机器学习算法库，实现了协同过滤、分类回归、聚类、关联规则、降维、特征抽取等方面的算法，功能丰富，使用起来简单方便，而且计算效率高，目前得到了广泛的使用，发展迅速。<br>下面以一个逻辑回归的例子说明如何使用MLlib的机器学习算法，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">package com.jasonfu.ml</div><div class="line"> </div><div class="line">import org.apache.spark.mllib.classification.LogisticRegressionWithSGD</div><div class="line">import org.apache.spark.mllib.linalg.Vectors</div><div class="line">import org.apache.spark.mllib.regression.LabeledPoint</div><div class="line">import org.apache.spark.&#123;SparkConf, SparkContext&#125;</div><div class="line">import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics</div><div class="line"> </div><div class="line">/**</div><div class="line">   * Created by jasonfu on 2016/2/25.</div><div class="line">   * Description：调用mllib的逻辑回归算法</div><div class="line">   */</div><div class="line">   </div><div class="line">object LRModelTest &#123;</div><div class="line">  def main(args: Array[String]) = &#123;</div><div class="line"> </div><div class="line">    val conf = new SparkConf().setAppName(s&quot;LogisticRegressionModel Test&quot;)</div><div class="line">    val sc = new SparkContext(conf)</div><div class="line"> </div><div class="line">    val numIterations = 10  // 最大迭代次数</div><div class="line">    val splitRatioArray = Array(0.7, 0.3) // 切分比例</div><div class="line"> </div><div class="line">    val oriDataSet = List(</div><div class="line">      LabeledPoint(0, Vectors.dense(0.0, 0.0, 0.0)),</div><div class="line">      LabeledPoint(1, Vectors.dense(0.1, 0.1, 0.1)),</div><div class="line">      LabeledPoint (1, Vectors.dense(0.2, 0.2, 0.2)),</div><div class="line">      LabeledPoint(1, Vectors.dense(9.0, 9.0, 9.0)),</div><div class="line">      LabeledPoint(0, Vectors.dense(9.1, 9.1, 9.1)),</div><div class="line">      LabeledPoint(1, Vectors.dense(9.2, 9.2, 9.2)),</div><div class="line">      LabeledPoint(0, Vectors.dense(0.2, 1.6, 3.0)),</div><div class="line">      LabeledPoint(1, Vectors.dense(0.1, 0.1, 0.1)),</div><div class="line">      LabeledPoint (1, Vectors.dense(3.2, 6.2, 1.2)),</div><div class="line">      LabeledPoint(1, Vectors.dense(2.0, 4.0, 3.0)),</div><div class="line">      LabeledPoint(0, Vectors.dense(1.1, 5.1, 3.1)),</div><div class="line">      LabeledPoint(1, Vectors.dense(9.2, 9.2, 9.2))</div><div class="line">    )</div><div class="line">    val oriDataSetRdd = sc.parallelize(oriDataSet)</div><div class="line"> </div><div class="line">    // 将原始数据集按照比例切分为训练集和测试集</div><div class="line">    val splitsDataSet = oriDataSetRdd.randomSplit(splitRatioArray)</div><div class="line">    val trainDataSet = splitsDataSet(0).cache()</div><div class="line">    val testDataSet = splitsDataSet(1).cache()</div><div class="line"> </div><div class="line">    println(&quot;LogisticRegressionModel Start&quot;)</div><div class="line"> </div><div class="line">    val lrModel = LogisticRegressionWithSGD.train(trainDataSet, numIterations)</div><div class="line"> </div><div class="line">    println(&quot;The LRModel&apos;s intercept is: &quot; + lrModel.intercept.toString)</div><div class="line">    println(&quot;The LRModel&apos;s weights is: &quot;)</div><div class="line">    println(lrModel.weights.toString())</div><div class="line"> </div><div class="line">    // 检验模型的效果</div><div class="line">    val predcitAndTrueLabelPairs = testDataSet.map&#123; point =&gt;</div><div class="line">      (lrModel.predict(point.features), point.label)</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    val lrTotalCorrect = predcitAndTrueLabelPairs.map&#123; labelPair =&gt;</div><div class="line">      if (labelPair._1 == labelPair._2) 1 else 0</div><div class="line">    &#125;.sum</div><div class="line">    val irAccurate = lrTotalCorrect / testDataSet.count // 准确率（结果的质量）</div><div class="line"> </div><div class="line">    val metrics = new BinaryClassificationMetrics(predcitAndTrueLabelPairs) // PR曲线（准确率-召回率）&amp; ROC 检验</div><div class="line">    val pr = metrics.areaUnderPR()</div><div class="line">    val roc = metrics.areaUnderROC()</div><div class="line"> </div><div class="line">    println(f&quot;Accurate: $&#123;irAccurate * 100.0&#125;%2.4f%%, Area under PR: $&#123;pr * 100.0&#125;%2.4f%%, Area under ROC: $&#123;roc * 100.0&#125;%2.4f%%&quot;)</div><div class="line"> </div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
           
         
@@ -378,7 +490,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -388,7 +500,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

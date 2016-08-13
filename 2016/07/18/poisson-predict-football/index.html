@@ -103,7 +103,7 @@
 <meta property="og:image" content="http://yoursite.com/img/pic3.png">
 <meta property="og:image" content="http://yoursite.com/img/pic4.png">
 <meta property="og:image" content="http://yoursite.com/img/pic5.png">
-<meta property="og:updated_time" content="2016-08-13T03:54:48.000Z">
+<meta property="og:updated_time" content="2016-08-13T06:38:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何使用泊松分布预测足球比赛的结果">
 <meta name="twitter:description" content="一、什么是泊松分布泊松分布（Poisson distribution）是一种统计与概率学里常见到的离散概率分布，用于描述单位时间内随机事件发生的次数。如某医院平均每小时出生的婴儿个数，某网站平均每分钟的访问次数等。在我们接下来将要进行的预测中，对于足球比赛对阵双方，任一球队在90分钟常规时间内的进球数也是近似地服从泊松分布。
@@ -320,7 +320,18 @@
 <p><img src="/img/pic5.png" alt="pic5" title="图5 比赛不同比分结果的概率"></p>
 <p>其中，“1:1”比分的概率就是将法国队进一球的概率乘以葡萄牙队进一球的概率，以此类推。</p>
 <h2 id="3-胜负平预测"><a href="#3-胜负平预测" class="headerlink" title="3. 胜负平预测"></a>3. 胜负平预测</h2><p>预测比赛对阵双方胜负平结果的概率，其实就是预测双方的进球差（主队进球数减去客队进球数）概率，有三种情况：进球差 &gt; 0 （主队进球数 &gt; 客队进球数）、进球差 = 0（主队进球数 = 客队进球数）以及进球差 &lt; 0（主队进球数 &lt; 客队进球数）。</p>
-<p>可以使用skellam分布（Skellam distribution）来预测上述结果。Skellam分布是两个独立Poisson分布随机变量差的分布，在假设对阵双方的进球数是相互独立的前提下，我们可以计算双方进球差（随机变量差）的概率。计算代码如下：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span>(<span class="string">'skellam'</span>)</div><div class="line"> </div><div class="line"> <span class="comment"># 葡萄牙队胜:0.2926639</span></div><div class="line">sum(dskellam(-<span class="number">50</span>:-<span class="number">1</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))</div><div class="line"> </div><div class="line"> <span class="comment"># 平局: 0.2815831</span></div><div class="line">sum(dskellam(<span class="number">0</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))</div><div class="line"> </div><div class="line"> <span class="comment"># 法国队胜: 0.4257531</span></div><div class="line">sum(dskellam(<span class="number">1</span>:<span class="number">50</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))</div></pre></td></tr></table></figure></p>
+<p>可以使用skellam分布（Skellam distribution）来预测上述结果。Skellam分布是两个独立Poisson分布随机变量差的分布，在假设对阵双方的进球数是相互独立的前提下，我们可以计算双方进球差（随机变量差）的概率。计算代码如下：  </p>
+<pre><code class="r"><span class="keyword">require</span>(<span class="string">'skellam'</span>)
+
+ <span class="comment"># 葡萄牙队胜:0.2926639</span>
+sum(dskellam(-<span class="number">50</span>:-<span class="number">1</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))
+
+ <span class="comment"># 平局: 0.2815831</span>
+sum(dskellam(<span class="number">0</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))
+
+ <span class="comment"># 法国队胜: 0.4257531</span>
+sum(dskellam(<span class="number">1</span>:<span class="number">50</span>, <span class="number">1.276429</span>, <span class="number">1.006961</span> ))
+</code></pre>
 <p>计算的结果是，法国队取胜的概率为0.4257531，葡萄牙队取胜的概率为0.2926639，打平的概率为0.2815831。这与比赛的实际结果相差甚远，在实际的预测使用中，需要结合比分预测等进行综合考虑判断，虽然这个判断过程充满了无数的运气成分，哈哈！</p>
 <h1 id="三、结语"><a href="#三、结语" class="headerlink" title="三、结语"></a>三、结语</h1><p>对足球比赛的结果进行预测，数据很重要，模型很重要，如果非得说出个具体的重要性，那就是：七分靠数据，三分靠模型，剩下的九十分靠运气。哈哈！</p>
 
@@ -358,6 +369,20 @@
         </div>
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/29/spark-mllib-fast-in-action/" rel="next" title="spark-mllib-fast-in-action">
+                <i class="fa fa-chevron-left"></i> spark-mllib-fast-in-action
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
@@ -426,7 +451,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -436,7 +461,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

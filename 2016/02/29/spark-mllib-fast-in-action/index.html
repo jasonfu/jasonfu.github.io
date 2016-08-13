@@ -1,0 +1,595 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Scala,Spark,大数据,机器学习,mllib," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="MLlib是Spark的机器学习算法库，实现了协同过滤、分类回归、聚类、关联规则、降维、特征抽取等方面的算法，功能丰富，使用起来简单方便，而且计算效率高，目前得到了广泛的使用，发展迅速。下面以一个逻辑回归的例子说明如何使用MLlib的机器学习算法，代码如下：12345678910111213141516171819202122232425262728293031323334353637383940">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spark-mllib-fast-in-action">
+<meta property="og:url" content="http://yoursite.com/2016/02/29/spark-mllib-fast-in-action/index.html">
+<meta property="og:site_name" content="Jasonfu's Blog">
+<meta property="og:description" content="MLlib是Spark的机器学习算法库，实现了协同过滤、分类回归、聚类、关联规则、降维、特征抽取等方面的算法，功能丰富，使用起来简单方便，而且计算效率高，目前得到了广泛的使用，发展迅速。下面以一个逻辑回归的例子说明如何使用MLlib的机器学习算法，代码如下：12345678910111213141516171819202122232425262728293031323334353637383940">
+<meta property="og:updated_time" content="2016-08-13T07:14:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spark-mllib-fast-in-action">
+<meta name="twitter:description" content="MLlib是Spark的机器学习算法库，实现了协同过滤、分类回归、聚类、关联规则、降维、特征抽取等方面的算法，功能丰富，使用起来简单方便，而且计算效率高，目前得到了广泛的使用，发展迅速。下面以一个逻辑回归的例子说明如何使用MLlib的机器学习算法，代码如下：12345678910111213141516171819202122232425262728293031323334353637383940">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/29/spark-mllib-fast-in-action/"/>
+
+  <title> spark-mllib-fast-in-action | Jasonfu's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Jasonfu's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                spark-mllib-fast-in-action
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-29T15:09:22+08:00" content="2016-02-29">
+              2016-02-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/02/29/spark-mllib-fast-in-action/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/29/spark-mllib-fast-in-action/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>MLlib是Spark的机器学习算法库，实现了协同过滤、分类回归、聚类、关联规则、降维、特征抽取等方面的算法，功能丰富，使用起来简单方便，而且计算效率高，目前得到了广泛的使用，发展迅速。<br>下面以一个逻辑回归的例子说明如何使用MLlib的机器学习算法，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">package com.jasonfu.ml</div><div class="line"> </div><div class="line">import org.apache.spark.mllib.classification.LogisticRegressionWithSGD</div><div class="line">import org.apache.spark.mllib.linalg.Vectors</div><div class="line">import org.apache.spark.mllib.regression.LabeledPoint</div><div class="line">import org.apache.spark.&#123;SparkConf, SparkContext&#125;</div><div class="line">import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics</div><div class="line"> </div><div class="line">/**</div><div class="line">   * Created by jasonfu on 2016/2/25.</div><div class="line">   * Description：调用mllib的逻辑回归算法</div><div class="line">   */</div><div class="line">   </div><div class="line">object LRModelTest &#123;</div><div class="line">  def main(args: Array[String]) = &#123;</div><div class="line"> </div><div class="line">    val conf = new SparkConf().setAppName(s&quot;LogisticRegressionModel Test&quot;)</div><div class="line">    val sc = new SparkContext(conf)</div><div class="line"> </div><div class="line">    val numIterations = 10  // 最大迭代次数</div><div class="line">    val splitRatioArray = Array(0.7, 0.3) // 切分比例</div><div class="line"> </div><div class="line">    val oriDataSet = List(</div><div class="line">      LabeledPoint(0, Vectors.dense(0.0, 0.0, 0.0)),</div><div class="line">      LabeledPoint(1, Vectors.dense(0.1, 0.1, 0.1)),</div><div class="line">      LabeledPoint (1, Vectors.dense(0.2, 0.2, 0.2)),</div><div class="line">      LabeledPoint(1, Vectors.dense(9.0, 9.0, 9.0)),</div><div class="line">      LabeledPoint(0, Vectors.dense(9.1, 9.1, 9.1)),</div><div class="line">      LabeledPoint(1, Vectors.dense(9.2, 9.2, 9.2)),</div><div class="line">      LabeledPoint(0, Vectors.dense(0.2, 1.6, 3.0)),</div><div class="line">      LabeledPoint(1, Vectors.dense(0.1, 0.1, 0.1)),</div><div class="line">      LabeledPoint (1, Vectors.dense(3.2, 6.2, 1.2)),</div><div class="line">      LabeledPoint(1, Vectors.dense(2.0, 4.0, 3.0)),</div><div class="line">      LabeledPoint(0, Vectors.dense(1.1, 5.1, 3.1)),</div><div class="line">      LabeledPoint(1, Vectors.dense(9.2, 9.2, 9.2))</div><div class="line">    )</div><div class="line">    val oriDataSetRdd = sc.parallelize(oriDataSet)</div><div class="line"> </div><div class="line">    // 将原始数据集按照比例切分为训练集和测试集</div><div class="line">    val splitsDataSet = oriDataSetRdd.randomSplit(splitRatioArray)</div><div class="line">    val trainDataSet = splitsDataSet(0).cache()</div><div class="line">    val testDataSet = splitsDataSet(1).cache()</div><div class="line"> </div><div class="line">    println(&quot;LogisticRegressionModel Start&quot;)</div><div class="line"> </div><div class="line">    val lrModel = LogisticRegressionWithSGD.train(trainDataSet, numIterations)</div><div class="line"> </div><div class="line">    println(&quot;The LRModel&apos;s intercept is: &quot; + lrModel.intercept.toString)</div><div class="line">    println(&quot;The LRModel&apos;s weights is: &quot;)</div><div class="line">    println(lrModel.weights.toString())</div><div class="line"> </div><div class="line">    // 检验模型的效果</div><div class="line">    val predcitAndTrueLabelPairs = testDataSet.map&#123; point =&gt;</div><div class="line">      (lrModel.predict(point.features), point.label)</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    val lrTotalCorrect = predcitAndTrueLabelPairs.map&#123; labelPair =&gt;</div><div class="line">      if (labelPair._1 == labelPair._2) 1 else 0</div><div class="line">    &#125;.sum</div><div class="line">    val irAccurate = lrTotalCorrect / testDataSet.count // 准确率（结果的质量）</div><div class="line"> </div><div class="line">    val metrics = new BinaryClassificationMetrics(predcitAndTrueLabelPairs) // PR曲线（准确率-召回率）&amp; ROC 检验</div><div class="line">    val pr = metrics.areaUnderPR()</div><div class="line">    val roc = metrics.areaUnderROC()</div><div class="line"> </div><div class="line">    println(f&quot;Accurate: $&#123;irAccurate * 100.0&#125;%2.4f%%, Area under PR: $&#123;pr * 100.0&#125;%2.4f%%, Area under ROC: $&#123;roc * 100.0&#125;%2.4f%%&quot;)</div><div class="line"> </div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scala/" rel="tag">#Scala</a>
+          
+            <a href="/tags/Spark/" rel="tag">#Spark</a>
+          
+            <a href="/tags/大数据/" rel="tag">#大数据</a>
+          
+            <a href="/tags/机器学习/" rel="tag">#机器学习</a>
+          
+            <a href="/tags/mllib/" rel="tag">#mllib</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/18/poisson-predict-football/" rel="prev" title="如何使用泊松分布预测足球比赛的结果">
+                如何使用泊松分布预测足球比赛的结果 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/02/29/spark-mllib-fast-in-action/"
+           data-title="spark-mllib-fast-in-action" data-url="http://yoursite.com/2016/02/29/spark-mllib-fast-in-action/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/img/avatar.jpg"
+               alt="Jasonfu" />
+          <p class="site-author-name" itemprop="name">Jasonfu</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jasonfu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"jasonfu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
