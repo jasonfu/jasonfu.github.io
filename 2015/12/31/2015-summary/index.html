@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Scala,Spark,大数据," />
+  <meta name="keywords" content="总结,感想,生活," />
 
 
 
@@ -84,24 +84,22 @@
 
 
 
-<meta name="description" content="Spark是一个分布式计算框架，自带有一个机器学习算法库。最近项目需要对一些比较大的数据进行分析和建模，涉及到机器学习算法的使用，所以决定在Spark上进行相关机器学习算法的建模。于是开始学习Spark的程序编写。
-什么是SparkSpark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark是基于MapReduce算法实现的分布式计算">
+<meta name="description" content="进入工作的第二年，碌碌无为的一年。
+生活读书是一个很好的习惯，增长见识，开阔眼界，陶冶情操。但却没有好好坚持，时间管理得不好，没有读几本书，实在是惭愧。时间管理不好主要还是因为内心浮躁，静不下心，需要戒躁戒“精神分散多动症”。
+电影也看得少，印象里也没去过多少次电影院，统计了下，看了17部。之前还经常会一个人跑去看电影，后来觉得这种习惯不好，会在潜意识里埋下生活凄凉的感觉，后来就很少一个人去电影院">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark的Hello World">
-<meta property="og:url" content="http://yoursite.com/2015/05/31/spark-hello-world/index.html">
+<meta property="og:title" content="2015“桔盘点”">
+<meta property="og:url" content="http://yoursite.com/2015/12/31/2015-summary/index.html">
 <meta property="og:site_name" content="Jasonfu's Blog">
-<meta property="og:description" content="Spark是一个分布式计算框架，自带有一个机器学习算法库。最近项目需要对一些比较大的数据进行分析和建模，涉及到机器学习算法的使用，所以决定在Spark上进行相关机器学习算法的建模。于是开始学习Spark的程序编写。
-什么是SparkSpark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark是基于MapReduce算法实现的分布式计算">
-<meta property="og:image" content="http://yoursite.com/img/spark_hw_1.jpg">
-<meta property="og:image" content="http://yoursite.com/img/spark_hw_2.jpg">
-<meta property="og:image" content="http://yoursite.com/img/spark_hw_3.jpg">
-<meta property="og:image" content="http://yoursite.com/img/spark_hw_4.jpg">
-<meta property="og:updated_time" content="2016-08-13T07:44:25.000Z">
+<meta property="og:description" content="进入工作的第二年，碌碌无为的一年。
+生活读书是一个很好的习惯，增长见识，开阔眼界，陶冶情操。但却没有好好坚持，时间管理得不好，没有读几本书，实在是惭愧。时间管理不好主要还是因为内心浮躁，静不下心，需要戒躁戒“精神分散多动症”。
+电影也看得少，印象里也没去过多少次电影院，统计了下，看了17部。之前还经常会一个人跑去看电影，后来觉得这种习惯不好，会在潜意识里埋下生活凄凉的感觉，后来就很少一个人去电影院">
+<meta property="og:updated_time" content="2016-08-13T14:21:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark的Hello World">
-<meta name="twitter:description" content="Spark是一个分布式计算框架，自带有一个机器学习算法库。最近项目需要对一些比较大的数据进行分析和建模，涉及到机器学习算法的使用，所以决定在Spark上进行相关机器学习算法的建模。于是开始学习Spark的程序编写。
-什么是SparkSpark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark是基于MapReduce算法实现的分布式计算">
-<meta name="twitter:image" content="http://yoursite.com/img/spark_hw_1.jpg">
+<meta name="twitter:title" content="2015“桔盘点”">
+<meta name="twitter:description" content="进入工作的第二年，碌碌无为的一年。
+生活读书是一个很好的习惯，增长见识，开阔眼界，陶冶情操。但却没有好好坚持，时间管理得不好，没有读几本书，实在是惭愧。时间管理不好主要还是因为内心浮躁，静不下心，需要戒躁戒“精神分散多动症”。
+电影也看得少，印象里也没去过多少次电影院，统计了下，看了17部。之前还经常会一个人跑去看电影，后来觉得这种习惯不好，会在潜意识里埋下生活凄凉的感觉，后来就很少一个人去电影院">
 
 
 
@@ -122,9 +120,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2015/05/31/spark-hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2015/12/31/2015-summary/"/>
 
-  <title> Spark的Hello World | Jasonfu's Blog </title>
+  <title> 2015“桔盘点” | Jasonfu's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -244,7 +242,7 @@
             
             
               
-                Spark的Hello World
+                2015“桔盘点”
               
             
           </h1>
@@ -256,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-05-31T15:31:15+08:00" content="2015-05-31">
-              2015-05-31
+            <time itemprop="dateCreated" datetime="2015-12-31T22:18:08+08:00" content="2015-12-31">
+              2015-12-31
             </time>
           </span>
 
@@ -267,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/05/31/spark-hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/31/spark-hello-world/" itemprop="commentsCount"></span>
+                <a href="/2015/12/31/2015-summary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/31/2015-summary/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,30 +289,20 @@
       
 
       
-        <p>Spark是一个分布式计算框架，自带有一个机器学习算法库。最近项目需要对一些比较大的数据进行分析和建模，涉及到机器学习算法的使用，所以决定在Spark上进行相关机器学习算法的建模。于是开始学习Spark的程序编写。</p>
-<h1 id="什么是Spark"><a href="#什么是Spark" class="headerlink" title="什么是Spark"></a>什么是Spark</h1><p>Spark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark是基于MapReduce算法实现的分布式计算，拥有Hadoop MapReduce所具有的优点；但不同于MapReduce的是Job中间输出和结果可以保存在内存中，从而不再需要频繁读写HDFS，因此Spark能更好地适用于数据挖掘与机器学习等需要迭代的MapReduce的算法。</p>
-<h1 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h1><p>Spark使用Scala语言开发，默认使用Scala作为编程语言。Scala是一门多范式的编程语言，设计初衷是要集成面向对象编程和函数式编程的各种特性，其具有简洁、性能高等特点。Spark同时也支持Java、Python等编程语言。</p>
-<h1 id="Spark编程入门"><a href="#Spark编程入门" class="headerlink" title="Spark编程入门"></a>Spark编程入门</h1><p>编写Spark程序比编写Hadoop MapReduce程序要简单的多，Spark提供了Spark-Shell，可以在Spark-Shell测试程序。写SparK程序的一般步骤就是创建或使用(SparkContext)实例，使用SparkContext创建RDD，然后就是对RDD进行操作。我们通过使用Scala语言在Spark上编写一个“Hello World”程序来入门。</p>
-<p><img src="/img/spark_hw_1.jpg" alt="Spark-Shell界面" title="Spark-Shell界面"></p>
-<p>分布式计算中的“Hello World”程序是Word Count。当打开Spark-shell时，SparkContext已经创建好了，实例名为sc，可以直接使用。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; <span class="keyword">val</span> file = sc.textFile(“hdfs:<span class="comment">//active.hdfs.spark.bi/user/hdfs/wordcount/input/words.txt”)</span></div></pre></td></tr></table></figure>
-<p>从HDFS创建一个文本文件RDD。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; <span class="keyword">val</span> words = file.flatMap(_.split(“ ”))</div></pre></td></tr></table></figure>
-<p>以空格作为分隔符把文件中的单词切分为一个单词列表。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; words.count()</div></pre></td></tr></table></figure>
-<p>计算单词的个数，结果如下图：</p>
-<p><img src="/img/spark_hw_2.jpg" alt="单词个数" title="单词个数"></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; words.distinct().count()</div></pre></td></tr></table></figure>
-<p>计算去重后的单词个数，结果如下图：</p>
-<p><img src="/img/spark_hw_3.jpg" alt="去重后的单词个数" title="去重后的单词个数"></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; <span class="keyword">val</span> wordCounts = words.map(x =&gt; (x, <span class="number">1</span>)).reduceByKey(_ + _)</div></pre></td></tr></table></figure>
-<p>通过map把单词列表转换成(word, 1)序列，然后再通过reduceByKey把(word, 1)序列归并为(word, word总的出现次数)形式的数据集。Spark的Transformations操作是Lazy的，也就是说从一个RDD转换生成另一个RDD的操作不是马上执行，Spark在遇到Transformations操作时只会记录需要这样的操作，并不会去执行，需要等到有Actions操作的时候才会真正启动计算过程进行计算。所以我们需要执行一个Action来返回结果或者把RDD数据写到数据存储系统（HDFS）。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; wordCounts.collect()</div></pre></td></tr></table></figure>
-<p>将计算结果的RDD转成Scala数组，并返回。结果如下图</p>
-<p><img src="/img/spark_hw_4.jpg" alt="Scala数组" title="Scala数组"></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; wordCounts.saveAsTextFile(“hdfs:<span class="comment">//active.hdfs.spark.bi/user/hdfs/wordcount/output”)</span></div></pre></td></tr></table></figure>
-<p>将计算结果保存在HDFS。</p>
-<p>至此，我们就完成了一个Spark的“Hello World” 程序。</p>
+        <p>进入工作的第二年，碌碌无为的一年。</p>
+<h1 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h1><p>读书是一个很好的习惯，增长见识，开阔眼界，陶冶情操。但却没有好好坚持，时间管理得不好，没有读几本书，实在是惭愧。时间管理不好主要还是因为内心浮躁，静不下心，需要戒躁戒“精神分散多动症”。</p>
+<p>电影也看得少，印象里也没去过多少次电影院，统计了下，看了17部。之前还经常会一个人跑去看电影，后来觉得这种习惯不好，会在潜意识里埋下生活凄凉的感觉，后来就很少一个人去电影院看电影了。</p>
+<p>坚持写日志的习惯是一个很好的品质，写作有助于思考，而且加深思考。遗憾的是这个习惯并没有好好坚持，全年下来写了15篇日志，这15篇还是包括现在正在写的年终总结。而且文章的质量也差强人意，可读性不强。来年需要鞭策自己更多地思考，写出质量更高的文章。</p>
+<p>旅游可以让人身临其境地去感受不同的风景，不同的人，不同的事物。常人言，读万卷书不如行万里路。从四月份的桂林，到六月份的日本北海道，再到年末的清远，这一年下来，出游虽然不多，但也算是走出了国门，看到发达国家不一样的风土人情，开阔了眼界。这一年有个故事，而故事的开端就在美丽的桂林，故事让原本无趣的桂林之旅变得生动与绚丽。后来故事发展呀发展，直到现在。在即将过去的一整年，或许是想给自己一个交代，勉强地说服自己“既往不恋，纵情向前”。</p>
+<p>闲余生活也开始学习一些投资，可惜出师不利，买港股亏得比较惨，吸取了不少教训。</p>
+<h1 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h1><p>经历了组织架构的变化，也见惯了人来人往。所在的组在兼并了另一个组之后成立为中心，负责公司整个支付和金融线的数据支撑与数据分析和挖掘。组织架构的变化带给了整个中心更多的机遇与挑战，我的主要工作也从原先的反作弊、数据分析变成了数据建模与数据方面的开发，主要是聚焦在保险业务，所以和大家聊起工作常常笑称自己现在是一个卖保险的。因为这块工作的原因，接触了不少保险的知识，学到了一些东西。</p>
+<p>经历组织架构变化到了新的组之后，面对前所未有的互联金融和大数据浪潮，可能是因为准备不足被两股大潮的同时冲击吓慌了神，工作整体上其实并不顺心，常常处于浑浑噩噩的状态，工作效率奇低。需要有所改变与突破，从手边一点一滴做起，从零开始，rework。</p>
+<h1 id="运动"><a href="#运动" class="headerlink" title="运动"></a>运动</h1><p>BG每周都有五人场的足球活动，基本每周都去了。现在踢球更多在意的是锻炼与享受，年少时那种因为对胜利的渴望而产生的拼命劲早已不再。今年第一次参加了公司的足球联赛，标准十一人场的比赛实在是踢不惯，平时踢的都是五人场和八人场，这一下子直接上十一人场，感觉就傻了。第一年参加“腾超”表现一般，重在参与和享受足球的乐趣咯。部门的足球队最后拿到了殿军的成绩，有一笔奖金可以腐败一次，也是其乐融融。</p>
+<p>周末有空也会去公司的健身房跑步和健身。跑步的时候常常是戴着耳机听罗辑思维，消除跑步的无聊。在跑步机跑步其实对膝盖并不好，但又懒得去旁边的深大或者荔香公园，所以一般在跑步机上跑步都不会跑太久。</p>
+<p>今天一整年打了一次羽毛球，公司定的羽毛球场都是塑胶场地，很不错。荒废了很久的羽毛球，想不到重新拿起拍子还有能力假装玩得有模有样，甚是欣慰。</p>
+<p>运动贵在坚持，如果有自己喜欢的运动项目那就更好了。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>回首过去的一年，有收获，有成长，但更多的是失落，总体而言，这一年，碌碌无为。感谢生命里出现的每一个人，无论带来的是泪水，还是欢笑，所有的一切，都是成长路上不可或缺的部分。</p>
+<p>2015，见证了恒大的又一次亚洲问鼎，也亲历了无奈的遗憾。未来的2016，希望依旧“有所期待”，有所突破。心之所向，素履以往。</p>
 
       
     </div>
@@ -337,11 +325,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Scala/" rel="tag">#Scala</a>
+            <a href="/tags/总结/" rel="tag">#总结</a>
           
-            <a href="/tags/Spark/" rel="tag">#Spark</a>
+            <a href="/tags/感想/" rel="tag">#感想</a>
           
-            <a href="/tags/大数据/" rel="tag">#大数据</a>
+            <a href="/tags/生活/" rel="tag">#生活</a>
           
         </div>
       
@@ -350,16 +338,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/01/11/python-multi-thread/" rel="next" title="Python的多线程使用">
-                <i class="fa fa-chevron-left"></i> Python的多线程使用
+              <a href="/2015/05/31/spark-hello-world/" rel="next" title="Spark的Hello World">
+                <i class="fa fa-chevron-left"></i> Spark的Hello World
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/31/2015-summary/" rel="prev" title="2015“桔盘点”">
-                2015“桔盘点” <i class="fa fa-chevron-right"></i>
+              <a href="/2016/02/29/spark-mllib-fast-in-action/" rel="prev" title="Spark MLlib机器学习算法快速实践">
+                Spark MLlib机器学习算法快速实践 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -386,8 +374,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/05/31/spark-hello-world/"
-           data-title="Spark的Hello World" data-url="http://yoursite.com/2015/05/31/spark-hello-world/">
+      <div class="ds-thread" data-thread-key="2015/12/31/2015-summary/"
+           data-title="2015“桔盘点”" data-url="http://yoursite.com/2015/12/31/2015-summary/">
       </div>
     
   </div>
@@ -471,7 +459,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Spark"><span class="nav-number">1.</span> <span class="nav-text">什么是Spark</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编程语言"><span class="nav-number">2.</span> <span class="nav-text">编程语言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark编程入门"><span class="nav-number">3.</span> <span class="nav-text">Spark编程入门</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#生活"><span class="nav-number">1.</span> <span class="nav-text">生活</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工作"><span class="nav-number">2.</span> <span class="nav-text">工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运动"><span class="nav-number">3.</span> <span class="nav-text">运动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
           </div>
         </section>
