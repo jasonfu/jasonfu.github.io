@@ -1,0 +1,638 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="加权移动平均法,数据扩充,样本扩充,Data Augmentation," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="问题背景在做分析建模时，经常会遇到样本稀少的情况，例如上市企业的财报数据，每个季度发布一次，如果一家企业到目前为止上市了三年，那它的实际样本数量也就12条，使用这种如此小数量级的样本量来进行建模会导致模型存在稳定性差、过拟合、泛化能力差等风险。所以有必要对样本进行扩充。
+对样本进行扩充的方法比较多，譬如根据样本的实际分布使用相关模型进行数据模拟，或者使用Bootstrapping方法对样本进行有放">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一种基于加权移动平均的数据扩充方法">
+<meta property="og:url" content="http://yoursite.com/2016/08/14/weighted-moving-average-data-augment/index.html">
+<meta property="og:site_name" content="Jasonfu's Blog">
+<meta property="og:description" content="问题背景在做分析建模时，经常会遇到样本稀少的情况，例如上市企业的财报数据，每个季度发布一次，如果一家企业到目前为止上市了三年，那它的实际样本数量也就12条，使用这种如此小数量级的样本量来进行建模会导致模型存在稳定性差、过拟合、泛化能力差等风险。所以有必要对样本进行扩充。
+对样本进行扩充的方法比较多，譬如根据样本的实际分布使用相关模型进行数据模拟，或者使用Bootstrapping方法对样本进行有放">
+<meta property="og:image" content="http://yoursite.com/img/da1.jpg">
+<meta property="og:image" content="http://yoursite.com/img/da2.jpg">
+<meta property="og:image" content="http://yoursite.com/img/da3.jpg">
+<meta property="og:updated_time" content="2016-08-14T12:10:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一种基于加权移动平均的数据扩充方法">
+<meta name="twitter:description" content="问题背景在做分析建模时，经常会遇到样本稀少的情况，例如上市企业的财报数据，每个季度发布一次，如果一家企业到目前为止上市了三年，那它的实际样本数量也就12条，使用这种如此小数量级的样本量来进行建模会导致模型存在稳定性差、过拟合、泛化能力差等风险。所以有必要对样本进行扩充。
+对样本进行扩充的方法比较多，譬如根据样本的实际分布使用相关模型进行数据模拟，或者使用Bootstrapping方法对样本进行有放">
+<meta name="twitter:image" content="http://yoursite.com/img/da1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/14/weighted-moving-average-data-augment/"/>
+
+  <title> 一种基于加权移动平均的数据扩充方法 | Jasonfu's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Jasonfu's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                一种基于加权移动平均的数据扩充方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-14T20:06:47+08:00" content="2016-08-14">
+              2016-08-14
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/14/weighted-moving-average-data-augment/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/14/weighted-moving-average-data-augment/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h1><p>在做分析建模时，经常会遇到样本稀少的情况，例如上市企业的财报数据，每个季度发布一次，如果一家企业到目前为止上市了三年，那它的实际样本数量也就12条，使用这种如此小数量级的样本量来进行建模会导致模型存在稳定性差、过拟合、泛化能力差等风险。所以有必要对样本进行扩充。</p>
+<p>对样本进行扩充的方法比较多，譬如根据样本的实际分布使用相关模型进行数据模拟，或者使用Bootstrapping方法对样本进行有放回采样，又或者借鉴缺失值处理的方法对样本进行扩充，等等。在使用深度学习对图片数据集进行训练的时候，为了增加训练数据，常常会对图片做左右翻转、剪切、缩放、翻转等相关操作以扩充样本。</p>
+<p>然而上述这些方法并不是任何场景都适用，还是以上市企业的财报预测为例。假设所预测的目标变量是上市企业的净营收，目标企业的上市时间为3年，那总共也就12个样本，且样本是随时间变化的序列，时间粒度为季度。此时使用上述方法进行样本扩充会存在很多的问题，譬如使用相关模型进行数据模拟，会让本来数量太少而不具代表性的样本加入更多的不确定因素，导致预测的失真；企业的净营收数据是一个时间序列，使用Bootstrapping进行有放回采样也不合理；想借助深度学习的例子进行样本扩充更是无从下手。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>或许可以换一种思路来进行样本扩充。原先样本的时间粒度为季度，是否可以将时间粒度缩小为天或者其他比季度小的时间粒度来进行样本扩充，同时保持数据不失真呢？答案是肯定的。</p>
+<p>可以借鉴时间序列预测中的加权移动平均法的思想来对样本进行扩充。假设某企业从2013年到2015年这三年每个季度财报公布的净营收分别为：20、25、27、36、28、40、45、56、53、63、69、76，单位为亿元，对应的季度从2013年Q1到2015年Q4，该企业的净营收趋势如图1所示：</p>
+<p><img src="/img/da1.jpg" alt="净营收趋势图" title="图1 净营收趋势图（按季度）"></p>
+<p>现在将上述按季度计算的净营收数据扩充为按天计算的净营收数据，计算公式为：</p>
+<p><img src="/img/da2.jpg" alt="数据扩充公式" title="数据扩充公式"></p>
+<p>其中，公式各个变量的定义如下：</p>
+<blockquote>
+<ul>
+<li>dr：当前日期的净营收</li>
+<li>preQuarRev：上一季度的净营收</li>
+<li>quarInterDays：当前季度最后一天与上一季度最后一天之间间隔的天数</li>
+<li>currentDay：当前计算的日期</li>
+<li>preQuarEndDay：上一季度最后一天的日期</li>
+<li>curQuarRev：当前季度的净营收</li>
+<li>currentDay-preQuarEndDay：当前日期与上一季度最后一天间隔的天数</li>
+</ul>
+</blockquote>
+<p>从上述公式可以看出，所计算的日期越接近上一季度，上一季度的净营收对结果计算的影响权重越大；越远离上一季度，则当前季度的净营收对结果计算的影响权重越大。</p>
+<p>以一个具体的例子说明公式的应用。如果计算的日期为2015年12月12日，则有</p>
+<blockquote>
+<ul>
+<li>preQuarRev = 69 (2015Q3)</li>
+<li>quarInterDays = 92 (2015Q4最后一天2015.12.31与2015Q3最后一天2015.09.30之间间隔的天数)</li>
+<li>currentDay = 2015.12.12</li>
+<li>preQuarEndDay = 2015.09.30</li>
+<li>curQuarRev = 76 (2015Q4，2015.12.12属于Q4)</li>
+<li>currentDay - preQuarEndDay = 73 (2015.12.12和2015.09.30之间间隔的天数)</li>
+</ul>
+</blockquote>
+<p>将各个参数值代入公式，计算可得到：dr = 0.8104 (亿元)，也即是说，使用该数据扩充方法之后，2015年12月12日的净营收数据为0.8104 (亿元)。</p>
+<p>该公式计算的python伪代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"> <span class="comment"># dateList：季度列表。将季度表示为日期形式，取季度的最后一天表示该季度，如2015年第四季度表示为20151231。列表中的日期从小到大排序</span> <span class="comment"># vList：净营收列表。对应季度列表排序。</span><span class="keyword">for</span> i <span class="keyword">in</span> range(len(dateList)):	<span class="keyword">if</span> i &lt; len(dateList) - <span class="number">1</span>:		startDate = datetime.datetime.strptime(dateList[i], <span class="string">'%Y%m%d'</span>)		lastDate = datetime.datetime.strptime(dateList[i + <span class="number">1</span>], <span class="string">'%Y%m%d'</span>)		nDays = (lastDate - startDate).days		<span class="keyword">for</span> j <span class="keyword">in</span> range(nDays):			currentDate = startDate + datetime.timedelta(days = j)			currentDayStr = currentDate.strftime(<span class="string">'%Y%m%d'</span>)			currentValue = ((nDays - j) / nDays) * vList[i] / nDays + (j / nDays) * vList[i + <span class="number">1</span>] / nDays			<span class="keyword">print</span> currentDayStr + <span class="string">'\t'</span> + str(round(currentValue, <span class="number">6</span>))</div></pre></td></tr></table></figure>
+<p>将原先的12条样本使用该数据扩充方法进行扩充之后，样本量就达到了1005条，该时间粒度为天的净营收数据趋势如图2所示：</p>
+<p><img src="/img/da3.jpg" alt="净营收趋势图" title="图3 净营收趋势图（按天）"></p>
+<p>对比图1和图2可以看出，除了时间粒度有差异之外，扩充之后的样本基本保存了原先样本的所有信息。</p>
+<p>当然，使用这种方法扩充样本之后，模型的目标变量（净营收）的时间粒度就从季度变成了天，对应的相关特征数据也需要整理为天的粒度。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/加权移动平均法/" rel="tag">#加权移动平均法</a>
+          
+            <a href="/tags/数据扩充/" rel="tag">#数据扩充</a>
+          
+            <a href="/tags/样本扩充/" rel="tag">#样本扩充</a>
+          
+            <a href="/tags/Data-Augmentation/" rel="tag">#Data Augmentation</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/18/poisson-predict-football/" rel="next" title="如何使用泊松分布预测足球比赛的结果">
+                <i class="fa fa-chevron-left"></i> 如何使用泊松分布预测足球比赛的结果
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/14/weighted-moving-average-data-augment/"
+           data-title="一种基于加权移动平均的数据扩充方法" data-url="http://yoursite.com/2016/08/14/weighted-moving-average-data-augment/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/img/avatar.jpg"
+               alt="Jasonfu" />
+          <p class="site-author-name" itemprop="name">Jasonfu</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题背景"><span class="nav-number">1.</span> <span class="nav-text">问题背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方法"><span class="nav-number">2.</span> <span class="nav-text">解决方法</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jasonfu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"jasonfu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
