@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://yoursite.com/img/da1.jpg">
 <meta property="og:image" content="http://yoursite.com/img/da2.jpg">
 <meta property="og:image" content="http://yoursite.com/img/da3.jpg">
-<meta property="og:updated_time" content="2016-08-14T12:17:38.000Z">
+<meta property="og:updated_time" content="2016-08-14T12:19:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一种基于加权移动平均的数据扩充方法">
 <meta name="twitter:description" content="问题背景在做分析建模时，经常会遇到样本稀少的情况，例如上市企业的财报数据，每个季度发布一次，如果一家企业到目前为止上市了三年，那它的实际样本数量也就12条，使用这种如此小数量级的样本量来进行建模会导致模型存在稳定性差、过拟合、泛化能力差等风险。所以有必要对样本进行扩充。
@@ -327,7 +327,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"> <span class="comment"># dateList：季度列表。将季度表示为日期形式，取季度的最后一天表示该季度，如2015年第四季度表示为20151231。列表中的日期从小到大排序</span></div><div class="line"> <span class="comment"># vList：净营收列表。对应季度列表排序。</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(dateList)):</div><div class="line">	<span class="keyword">if</span> i &lt; len(dateList) - <span class="number">1</span>:</div><div class="line">		startDate = datetime.datetime.strptime(dateList[i], <span class="string">'%Y%m%d'</span>)</div><div class="line">		lastDate = datetime.datetime.strptime(dateList[i + <span class="number">1</span>], <span class="string">'%Y%m%d'</span>)</div><div class="line">		nDays = (lastDate - startDate).days</div><div class="line"></div><div class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> range(nDays):</div><div class="line">			currentDate = startDate + datetime.timedelta(days = j)</div><div class="line">			currentDayStr = currentDate.strftime(<span class="string">'%Y%m%d'</span>)</div><div class="line">			currentValue = ((nDays - j) / nDays) * vList[i] / nDays + (j / nDays) * vList[i + <span class="number">1</span>] / nDays</div><div class="line">			<span class="keyword">print</span> currentDayStr + <span class="string">'\t'</span> + str(round(currentValue, <span class="number">6</span>))</div></pre></td></tr></table></figure>
 <p>对原先的12条样本进行扩充之后，样本量达到了1005条，该时间粒度为天的净营收样本数据的趋势如图2所示：</p>
 <p><img src="/img/da3.jpg" alt="净营收趋势图" title="图3 净营收趋势图（按天）"></p>
-<p>对比图1和图2可以看出，除了时间粒度有差异之外，扩充之后的样本基本保存了原先样本的所有信息。</p>
+<p>对比图1和图3可以看出，除了时间粒度有差异之外，扩充之后的样本基本保存了原先样本的所有信息。</p>
 <p>当然，使用这种方法扩充样本之后，模型的目标变量（净营收）的时间粒度就从季度变成了天，对应的相关特征数据也需要整理为天的粒度。</p>
 
       
