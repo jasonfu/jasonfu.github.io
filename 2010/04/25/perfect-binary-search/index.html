@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Scala,Spark,大数据," />
+  <meta name="keywords" content="算法,优化,二分搜索," />
 
 
 
@@ -84,24 +84,22 @@
 
 
 
-<meta name="description" content="Spark是一个分布式计算框架，自带有一个机器学习算法库。最近项目需要对一些比较大的数据进行分析和建模，涉及到机器学习算法的使用，所以决定在Spark上进行相关机器学习算法的建模。于是开始学习Spark的程序编写。
-什么是SparkSpark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark是基于MapReduce算法实现的分布式计算">
+<meta name="description" content="最近时常会翻阅《编程珠玑（第二版）》这本书，一次偶然的机会看到了一个效率很高的很优秀的二分搜索程序，忍不住在这里要和大家分享下。废话少说，现在进入主题。
+一般的二分搜索算法如下所示：
+1234567891011l = 0; u = n-1loop    /* invariant: if t is present, it is in x[l:u]*/    if l &amp;gt; u        p">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark的Hello World">
-<meta property="og:url" content="http://yoursite.com/2015/05/31/spark-hello-world/index.html">
+<meta property="og:title" content="一个优秀的二分搜索程序">
+<meta property="og:url" content="http://yoursite.com/2010/04/25/perfect-binary-search/index.html">
 <meta property="og:site_name" content="Jasonfu's Blog">
-<meta property="og:description" content="Spark是一个分布式计算框架，自带有一个机器学习算法库。最近项目需要对一些比较大的数据进行分析和建模，涉及到机器学习算法的使用，所以决定在Spark上进行相关机器学习算法的建模。于是开始学习Spark的程序编写。
-什么是SparkSpark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark是基于MapReduce算法实现的分布式计算">
-<meta property="og:image" content="http://yoursite.com/img/spark_hw_1.jpg">
-<meta property="og:image" content="http://yoursite.com/img/spark_hw_2.jpg">
-<meta property="og:image" content="http://yoursite.com/img/spark_hw_3.jpg">
-<meta property="og:image" content="http://yoursite.com/img/spark_hw_4.jpg">
-<meta property="og:updated_time" content="2016-08-13T07:44:25.000Z">
+<meta property="og:description" content="最近时常会翻阅《编程珠玑（第二版）》这本书，一次偶然的机会看到了一个效率很高的很优秀的二分搜索程序，忍不住在这里要和大家分享下。废话少说，现在进入主题。
+一般的二分搜索算法如下所示：
+1234567891011l = 0; u = n-1loop    /* invariant: if t is present, it is in x[l:u]*/    if l &amp;gt; u        p">
+<meta property="og:updated_time" content="2016-08-15T08:06:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark的Hello World">
-<meta name="twitter:description" content="Spark是一个分布式计算框架，自带有一个机器学习算法库。最近项目需要对一些比较大的数据进行分析和建模，涉及到机器学习算法的使用，所以决定在Spark上进行相关机器学习算法的建模。于是开始学习Spark的程序编写。
-什么是SparkSpark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark是基于MapReduce算法实现的分布式计算">
-<meta name="twitter:image" content="http://yoursite.com/img/spark_hw_1.jpg">
+<meta name="twitter:title" content="一个优秀的二分搜索程序">
+<meta name="twitter:description" content="最近时常会翻阅《编程珠玑（第二版）》这本书，一次偶然的机会看到了一个效率很高的很优秀的二分搜索程序，忍不住在这里要和大家分享下。废话少说，现在进入主题。
+一般的二分搜索算法如下所示：
+1234567891011l = 0; u = n-1loop    /* invariant: if t is present, it is in x[l:u]*/    if l &amp;gt; u        p">
 
 
 
@@ -122,9 +120,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2015/05/31/spark-hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2010/04/25/perfect-binary-search/"/>
 
-  <title> Spark的Hello World | Jasonfu's Blog </title>
+  <title> 一个优秀的二分搜索程序 | Jasonfu's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -244,7 +242,7 @@
             
             
               
-                Spark的Hello World
+                一个优秀的二分搜索程序
               
             
           </h1>
@@ -256,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-05-31T15:31:15+08:00" content="2015-05-31">
-              2015-05-31
+            <time itemprop="dateCreated" datetime="2010-04-25T15:54:34+08:00" content="2010-04-25">
+              2010-04-25
             </time>
           </span>
 
@@ -267,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/05/31/spark-hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/31/spark-hello-world/" itemprop="commentsCount"></span>
+                <a href="/2010/04/25/perfect-binary-search/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2010/04/25/perfect-binary-search/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,30 +289,14 @@
       
 
       
-        <p>Spark是一个分布式计算框架，自带有一个机器学习算法库。最近项目需要对一些比较大的数据进行分析和建模，涉及到机器学习算法的使用，所以决定在Spark上进行相关机器学习算法的建模。于是开始学习Spark的程序编写。</p>
-<h1 id="什么是Spark"><a href="#什么是Spark" class="headerlink" title="什么是Spark"></a>什么是Spark</h1><p>Spark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark是基于MapReduce算法实现的分布式计算，拥有Hadoop MapReduce所具有的优点；但不同于MapReduce的是Job中间输出和结果可以保存在内存中，从而不再需要频繁读写HDFS，因此Spark能更好地适用于数据挖掘与机器学习等需要迭代的MapReduce的算法。</p>
-<h1 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h1><p>Spark使用Scala语言开发，默认使用Scala作为编程语言。Scala是一门多范式的编程语言，设计初衷是要集成面向对象编程和函数式编程的各种特性，其具有简洁、性能高等特点。Spark同时也支持Java、Python等编程语言。</p>
-<h1 id="Spark编程入门"><a href="#Spark编程入门" class="headerlink" title="Spark编程入门"></a>Spark编程入门</h1><p>编写Spark程序比编写Hadoop MapReduce程序要简单的多，Spark提供了Spark-Shell，可以在Spark-Shell测试程序。写SparK程序的一般步骤就是创建或使用(SparkContext)实例，使用SparkContext创建RDD，然后就是对RDD进行操作。我们通过使用Scala语言在Spark上编写一个“Hello World”程序来入门。</p>
-<p><img src="/img/spark_hw_1.jpg" alt="Spark-Shell界面" title="Spark-Shell界面"></p>
-<p>分布式计算中的“Hello World”程序是Word Count。当打开Spark-shell时，SparkContext已经创建好了，实例名为sc，可以直接使用。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; <span class="keyword">val</span> file = sc.textFile(“hdfs:<span class="comment">//active.hdfs.spark.bi/user/hdfs/wordcount/input/words.txt”)</span></div></pre></td></tr></table></figure>
-<p>从HDFS创建一个文本文件RDD。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; <span class="keyword">val</span> words = file.flatMap(_.split(“ ”))</div></pre></td></tr></table></figure>
-<p>以空格作为分隔符把文件中的单词切分为一个单词列表。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; words.count()</div></pre></td></tr></table></figure>
-<p>计算单词的个数，结果如下图：</p>
-<p><img src="/img/spark_hw_2.jpg" alt="单词个数" title="单词个数"></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; words.distinct().count()</div></pre></td></tr></table></figure>
-<p>计算去重后的单词个数，结果如下图：</p>
-<p><img src="/img/spark_hw_3.jpg" alt="去重后的单词个数" title="去重后的单词个数"></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; <span class="keyword">val</span> wordCounts = words.map(x =&gt; (x, <span class="number">1</span>)).reduceByKey(_ + _)</div></pre></td></tr></table></figure>
-<p>通过map把单词列表转换成(word, 1)序列，然后再通过reduceByKey把(word, 1)序列归并为(word, word总的出现次数)形式的数据集。Spark的Transformations操作是Lazy的，也就是说从一个RDD转换生成另一个RDD的操作不是马上执行，Spark在遇到Transformations操作时只会记录需要这样的操作，并不会去执行，需要等到有Actions操作的时候才会真正启动计算过程进行计算。所以我们需要执行一个Action来返回结果或者把RDD数据写到数据存储系统（HDFS）。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; wordCounts.collect()</div></pre></td></tr></table></figure>
-<p>将计算结果的RDD转成Scala数组，并返回。结果如下图</p>
-<p><img src="/img/spark_hw_4.jpg" alt="Scala数组" title="Scala数组"></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scala&gt; wordCounts.saveAsTextFile(“hdfs:<span class="comment">//active.hdfs.spark.bi/user/hdfs/wordcount/output”)</span></div></pre></td></tr></table></figure>
-<p>将计算结果保存在HDFS。</p>
-<p>至此，我们就完成了一个Spark的“Hello World” 程序。</p>
+        <p>最近时常会翻阅《编程珠玑（第二版）》这本书，一次偶然的机会看到了一个效率很高的很优秀的二分搜索程序，忍不住在这里要和大家分享下。废话少说，现在进入主题。</p>
+<p>一般的二分搜索算法如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">l = <span class="number">0</span>; u = n<span class="number">-1</span></div><div class="line"></div><div class="line">loop</div><div class="line">    <span class="comment">/* invariant: if t is present, it is in x[l:u]*/</span></div><div class="line">    <span class="keyword">if</span> l &gt; u</div><div class="line">        p = <span class="number">-1</span>;<span class="keyword">break</span></div><div class="line">    m = ( l + u)/<span class="number">2</span></div><div class="line">    <span class="keyword">case</span></div><div class="line">    x[m] &lt; t: l = m+<span class="number">1</span></div><div class="line">    x[m] == t: p = m; <span class="keyword">break</span>	 </div><div class="line">    x[m] &gt; t: u = m<span class="number">-1</span></div></pre></td></tr></table></figure>
+<p>在上面所示的这段代码当中，针对一般的t没有重复出现且可以返回t出现的任意位置的情况是没问题的。但是若是要确定整数数组x[0..n-1]中t第一次出现的位置，且t在数组中是多次出现的话，上述代码则可能会返回其中的任意一个位置。上面我们将要给出的优化的代码的主循环与上面的程序类似；我们仍将使用下标l和u指示数组中包含t的部分，但不变式关系为x[l]<t<=x[u]和l<u。此外，我们假设n>=0,x[-1]<t以及x[n]>=t(但是程序并不访问者两个假想的元素)。现在的二分搜索代码如下所示：</t以及x[n]></t<=x[u]和l<u。此外，我们假设n></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">l = <span class="number">-1</span>; u = n</div><div class="line"><span class="keyword">while</span> l+<span class="number">1</span> != u</div><div class="line">    <span class="comment">/* invariant: x[l] &lt; t &amp;&amp; x[u] &gt;= t &amp;&amp; l &lt; u */</span></div><div class="line">    m = ( l + u)/<span class="number">2</span></div><div class="line">    <span class="keyword">if</span> x[m] &lt; t</div><div class="line">        l = m</div><div class="line">    <span class="keyword">else</span></div><div class="line">        u = m</div><div class="line">    <span class="comment">/* assert l+1 = u &amp;&amp; x[l] &lt; t &amp;&amp; x[u] &gt;= t*/</span></div><div class="line">    p = u</div><div class="line">    <span class="keyword">if</span> p &gt;= n || x[p] != t</div><div class="line">        p = <span class="number">-1</span></div></pre></td></tr></table></figure>
+<p>在上面所示代码中，循环重复时，由if语句来保持该不等式的正确性。当循环结束时，我们知道如果t存在于数组中，那么t的第一次出现在位置u。最后两个语句对p赋值：如果t在x中，那么将p置为t第一次出现的下标；如果t不在数组中，则将p置为-1。</p>
+<p>虽然第二个程序所解决的问题要比第一个程序所解决的问题更难，但却可能更高效：在每次循环迭代中，他只对t和x中的元素做一次比较，而原先的程序有时必须比较两次。当数据量比较大的时候，第二个程序的效率就比较明显了。一般而言，第二个程序的运行速度通常是第一个程序的2～3倍。</p>
+<p>好的程序设计让人回味无穷，就如同一杯好茶，喝完之后依旧让人荡气回肠。</p>
 
       
     </div>
@@ -337,11 +319,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Scala/" rel="tag">#Scala</a>
+            <a href="/tags/算法/" rel="tag">#算法</a>
           
-            <a href="/tags/Spark/" rel="tag">#Spark</a>
+            <a href="/tags/优化/" rel="tag">#优化</a>
           
-            <a href="/tags/大数据/" rel="tag">#大数据</a>
+            <a href="/tags/二分搜索/" rel="tag">#二分搜索</a>
           
         </div>
       
@@ -350,16 +332,12 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/01/11/python-multi-thread/" rel="next" title="Python的多线程使用">
-                <i class="fa fa-chevron-left"></i> Python的多线程使用
-              </a>
-            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/31/2015-summary/" rel="prev" title="2015“桔盘点”">
-                2015“桔盘点” <i class="fa fa-chevron-right"></i>
+              <a href="/2011/12/16/greedy-algorithm-flex/" rel="prev" title="贪婪算法（Greedy Algorithm）- Flex实现">
+                贪婪算法（Greedy Algorithm）- Flex实现 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -386,8 +364,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/05/31/spark-hello-world/"
-           data-title="Spark的Hello World" data-url="http://yoursite.com/2015/05/31/spark-hello-world/">
+      <div class="ds-thread" data-thread-key="2010/04/25/perfect-binary-search/"
+           data-title="一个优秀的二分搜索程序" data-url="http://yoursite.com/2010/04/25/perfect-binary-search/">
       </div>
     
   </div>
@@ -471,7 +449,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Spark"><span class="nav-number">1.</span> <span class="nav-text">什么是Spark</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编程语言"><span class="nav-number">2.</span> <span class="nav-text">编程语言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark编程入门"><span class="nav-number">3.</span> <span class="nav-text">Spark编程入门</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
