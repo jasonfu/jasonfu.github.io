@@ -235,6 +235,122 @@
             
               
                 
+                <a class="post-title-link" href="/2014/06/29/case-when-use-case/" itemprop="url">
+                  Case when使用案例
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-06-29T16:56:12+08:00" content="2014-06-29">
+              2014-06-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/06/29/case-when-use-case/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/29/case-when-use-case/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>有这样一张数据库表t_paylist，存储用户的消费记录，如下图所示：</p>
+<p><img src="/img/case-when-use-case1.png" alt="case-when-use-case1.png"></p>
+<p>每行记录表示用户的一次购物记录，shop表示用户发生购物行为的商店，paynum表示消费的金额，单位为元，paytime表示购物的时间，以值为20140406212233的paytime为例，其表示2014年4月6日21时22分33秒。</p>
+<p>现有一个需要使用SQL来完成的数据统计需求：需要统计每个用户每个月在以下消费区间[0, 20]、(20, 40] 、(40, +∞)的总消费金额和总消费笔数，结果类似下表所示：</p>
+<p><img src="/img/case-when-use-case2.png" alt="case-when-use-case2.png"></p>
+<p>这个统计需求看起来挺复杂，不生成几个中间表折腾下貌似不能解决，但其实使用case when语句可以简单快速地解决，实现的SQL语句如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username, fmonth, </div><div class="line">   <span class="keyword">sum</span>(a1) <span class="keyword">as</span> a1, <span class="keyword">sum</span>(<span class="keyword">case</span> <span class="keyword">when</span> a1 &gt; <span class="number">0</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span>) <span class="keyword">as</span> c1,</div><div class="line">   <span class="keyword">sum</span>(a2) <span class="keyword">as</span> a2, <span class="keyword">sum</span>(<span class="keyword">case</span> <span class="keyword">when</span> a2 &gt; <span class="number">0</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span>) <span class="keyword">as</span> c2,</div><div class="line">   <span class="keyword">sum</span>(a3) <span class="keyword">as</span> a3, <span class="keyword">sum</span>(<span class="keyword">case</span> <span class="keyword">when</span> a3 &gt; <span class="number">0</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span>) <span class="keyword">as</span> c3</div><div class="line"><span class="keyword">from</span></div><div class="line">(</div><div class="line">	<span class="keyword">select</span> username, fmonth, </div><div class="line">	   <span class="keyword">case</span> <span class="keyword">when</span> paynum &lt;= <span class="number">20</span> <span class="keyword">then</span> paynum <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> a1,</div><div class="line">	   <span class="keyword">case</span> <span class="keyword">when</span> paynum &gt; <span class="number">20</span>  <span class="keyword">and</span> paynum &lt;= <span class="number">40</span> <span class="keyword">then</span> paynum <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> a2,</div><div class="line">	   <span class="keyword">case</span> <span class="keyword">when</span> paynum &gt; <span class="number">40</span> <span class="keyword">then</span> paynum <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> a3</div><div class="line">	<span class="keyword">from</span></div><div class="line">	(</div><div class="line">		<span class="keyword">select</span> username, paynum, <span class="keyword">substr</span>(paytime,<span class="number">1</span>,<span class="number">6</span>) fmonth</div><div class="line">		<span class="keyword">from</span> t_paylist</div><div class="line">	)</div><div class="line">)</div><div class="line"><span class="keyword">group</span> <span class="keyword">by</span> username, fmonth</div></pre></td></tr></table></figure>
+<p>逐步讲解上述的SQL语句。首先，由于统计的时间单位为月份，因此将每行记录的时间截取到月份，下面的SQL语句实现这个功能：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username, paynum, <span class="keyword">substr</span>(paytime,<span class="number">1</span>,<span class="number">6</span>) fmonth</div><div class="line"><span class="keyword">from</span> t_paylist</div></pre></td></tr></table></figure>
+<p>substr函数的下标是从1算起的，substr(paytime,1,6)表示从第一位开始截取，长度为6。</p>
+<p>接着，使用case when语句来对用户的消费金额进行分区。使用case when进行判断，如case when paynum &lt;= 20 then paynum else 0 end as a1，当消费金额paynum小于20时，返回paynum的实际值，否则返回0，并将其作为新的字段a1，a1就是表示每个用户在消费区间[0, 20]的消费金额。具体的实现如下面的SQL语句所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> username, fmonth, </div><div class="line">	<span class="keyword">case</span> <span class="keyword">when</span> paynum &lt;= <span class="number">20</span> <span class="keyword">then</span> paynum <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> a1,</div><div class="line">	<span class="keyword">case</span> <span class="keyword">when</span> paynum &gt; <span class="number">20</span>  <span class="keyword">and</span> paynum &lt;= <span class="number">40</span> <span class="keyword">then</span> paynum <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> a2,</div><div class="line">	<span class="keyword">case</span> <span class="keyword">when</span> paynum &gt; <span class="number">40</span> <span class="keyword">then</span> paynum <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span> <span class="keyword">as</span> a3</div><div class="line"><span class="keyword">from</span></div><div class="line">(</div><div class="line">	<span class="keyword">select</span> username, paynum, <span class="keyword">substr</span>(paytime,<span class="number">1</span>,<span class="number">6</span>) fmonth</div><div class="line">	<span class="keyword">from</span> t_paylist</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>最后，因为是按每个用户每个月进行统计的，所以需要按照用户和月份做分组的聚合计算。在做聚合运算的时候，还需要对各个消费区间的总消费笔数进行计算，此时需要再次用到case when语句。判断用户的消费金额是否在某个区间，如果是，则返回1，表示1次消费记录，如果否，则返回0，外层再嵌套一个sum聚合函数做聚合运算，并将结果作为一个新的字段表示用户在某个消费区间的总消费笔数，如sum(case when a1 &gt; 0 then 1 else 0 end) as c1，该语句就是计算用户在区间[0, 20]的总消费笔数c1。而计算用户在每个消费区间的总消费金额则要简单得多，只需要使用sum聚合函数对a1、a2和a3进行聚合运算即可。最终的SQL查询语句如最开始给出的SQL语句所示。</p>
+<p>此外，case when语句还可以同时判断多个字段，如</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">case when username = ‘kaka’ and shop = ‘amazon’ then ‘yes’</div></pre></td></tr></table></figure>
+<p>诸如此类。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2011/12/16/greedy-algorithm-flex/" itemprop="url">
                   贪婪算法（Greedy Algorithm）- Flex实现
                 </a>
@@ -503,7 +619,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -513,7 +629,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
