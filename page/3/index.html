@@ -235,6 +235,113 @@
             
               
                 
+                <a class="post-title-link" href="/2014/07/27/case-when-muti-field/" itemprop="url">
+                  Case when如何返回多个字段
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-07-27T16:41:48+08:00" content="2014-07-27">
+              2014-07-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/07/27/case-when-muti-field/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/27/case-when-muti-field/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用case when语句从数据库中提取数据有时候会遇到需要返回多个字段的情况，但case when是不支持返回两个或以上的多个字段的，此时可以考虑使用字符串连接符“||”来解决问题。</p>
+<p>假设有两张数据库表：用户信息表t_user_info和用户的消费记录表t_paylist，如下表1、表2所示：</p>
+<p><img src="/img/case-when-muti-field1.jpg" alt="表1 t_user_info" title="表1 t_user_info"></p>
+<p><img src="/img/case-when-muti-field2.jpg" alt="表2 t_paylist" title="表2 t_paylist"></p>
+<p>t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用户在各个商户的消费记录，以表中的第一行为例，表示编号为1000的用户在位于后海大道的商户711消费了15元。</p>
+<p>现在从表t_user_info中提取10个用户，然后计算每个用户总共在多少个不同的商户有过消费行为以及总的消费金额，位于不同地方的相同连锁店算不同的商户。以表2中编号为1000的用户为例，计算返回的结果需为：商户数 3，总消费金额 169。在写SQL的时候需要注意的一个地方是，从表t_user_info中提取出来的10个用户可能个别用户并没有消费的记录，也即是说在表t_paylist中可能找不到对应的消费信息。</p>
+<p>这是一个需要根据userid进行group by计算的数据提取需求，由于部分用户可能没有消费记录，可以使用用户表left join消费记录表，而根据上面的需求，商户的区分需要根据shopname和shop_addr两个字段，且是在右表的userid为非空的时候才计算，这个可以使用case when进行判断，当右表的userid为非空时返回shopname和shop_addr两个字段。本文最开始的时候提到，case when是不支持返回两个或以上的多个字段的，此时可以使用字符串连接符“||”这个小技巧来连接shopname和shop_addr两个字段然后返回，以区分不同的商户。最终的SQL实现代码如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> l.userid,</div><div class="line">       <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> r.userid <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> r.shopname || r.shop_addr <span class="keyword">END</span>)) <span class="keyword">AS</span> shop_count,</div><div class="line">       <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> r.userid <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> r.paynum <span class="keyword">END</span>) <span class="keyword">AS</span> paynum_total</div><div class="line"><span class="keyword">FROM</span></div><div class="line">(</div><div class="line">    <span class="keyword">SELECT</span> userid</div><div class="line">    <span class="keyword">FROM</span>  t_user_info</div><div class="line">    <span class="keyword">LIMIT</span> <span class="number">10</span></div><div class="line">)l <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> t_paylist r <span class="keyword">ON</span> l.userid = r.userid</div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> l.userid</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/06/29/case-when-use-case/" itemprop="url">
                   Case when使用案例
                 </a>
@@ -619,7 +726,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -629,7 +736,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -666,7 +773,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

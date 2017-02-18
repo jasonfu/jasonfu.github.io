@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据库技术,SQL," />
+  <meta name="keywords" content="总结,感想,生活,生死," />
 
 
 
@@ -84,31 +84,25 @@
 
 
 
-<meta name="description" content="使用case when语句从数据库中提取数据有时候会遇到需要返回多个字段的情况，但case when是不支持返回两个或以上的多个字段的，此时可以考虑使用字符串连接符“||”来解决问题。
-假设有两张数据库表：用户信息表t_user_info和用户的消费记录表t_paylist，如下表1、表2所示：
-
-
-t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用户在各个商户的消">
+<meta name="description" content="2016，这一年，有点糟糕。
+这是进入工作的第三年，基本没有事情能取得突破，对未来感到愈发的焦虑。未来会怎么样，很难看清楚，但对于过去的一年，可以简单写一些。
+工作无所建树，与希望达到的目标有很大的差距。
+年初工作内容作了调整，开始做大数据量化的项目，这是一个探索性的孵化项目。方向很好，是一个风口，但因为不同领导的期望不一致，导致项目做到最后是不伦不类，产出甚微。而从最开始公司大老板的说要投两千万">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Case when如何返回多个字段">
-<meta property="og:url" content="http://yoursite.com/2014/07/27/case-when-muti-field/index.html">
+<meta property="og:title" content="2016“桔盘点”">
+<meta property="og:url" content="http://yoursite.com/2017/01/18/2016-summary/index.html">
 <meta property="og:site_name" content="Jasonfu's Blog">
-<meta property="og:description" content="使用case when语句从数据库中提取数据有时候会遇到需要返回多个字段的情况，但case when是不支持返回两个或以上的多个字段的，此时可以考虑使用字符串连接符“||”来解决问题。
-假设有两张数据库表：用户信息表t_user_info和用户的消费记录表t_paylist，如下表1、表2所示：
-
-
-t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用户在各个商户的消">
-<meta property="og:image" content="http://yoursite.com/img/case-when-muti-field1.jpg">
-<meta property="og:image" content="http://yoursite.com/img/case-when-muti-field2.jpg">
-<meta property="og:updated_time" content="2016-08-13T08:50:03.000Z">
+<meta property="og:description" content="2016，这一年，有点糟糕。
+这是进入工作的第三年，基本没有事情能取得突破，对未来感到愈发的焦虑。未来会怎么样，很难看清楚，但对于过去的一年，可以简单写一些。
+工作无所建树，与希望达到的目标有很大的差距。
+年初工作内容作了调整，开始做大数据量化的项目，这是一个探索性的孵化项目。方向很好，是一个风口，但因为不同领导的期望不一致，导致项目做到最后是不伦不类，产出甚微。而从最开始公司大老板的说要投两千万">
+<meta property="og:updated_time" content="2017-02-18T13:19:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Case when如何返回多个字段">
-<meta name="twitter:description" content="使用case when语句从数据库中提取数据有时候会遇到需要返回多个字段的情况，但case when是不支持返回两个或以上的多个字段的，此时可以考虑使用字符串连接符“||”来解决问题。
-假设有两张数据库表：用户信息表t_user_info和用户的消费记录表t_paylist，如下表1、表2所示：
-
-
-t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用户在各个商户的消">
-<meta name="twitter:image" content="http://yoursite.com/img/case-when-muti-field1.jpg">
+<meta name="twitter:title" content="2016“桔盘点”">
+<meta name="twitter:description" content="2016，这一年，有点糟糕。
+这是进入工作的第三年，基本没有事情能取得突破，对未来感到愈发的焦虑。未来会怎么样，很难看清楚，但对于过去的一年，可以简单写一些。
+工作无所建树，与希望达到的目标有很大的差距。
+年初工作内容作了调整，开始做大数据量化的项目，这是一个探索性的孵化项目。方向很好，是一个风口，但因为不同领导的期望不一致，导致项目做到最后是不伦不类，产出甚微。而从最开始公司大老板的说要投两千万">
 
 
 
@@ -129,9 +123,9 @@ t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用�
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2014/07/27/case-when-muti-field/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/01/18/2016-summary/"/>
 
-  <title> Case when如何返回多个字段 | Jasonfu's Blog </title>
+  <title> 2016“桔盘点” | Jasonfu's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -251,7 +245,7 @@ t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用�
             
             
               
-                Case when如何返回多个字段
+                2016“桔盘点”
               
             
           </h1>
@@ -263,8 +257,8 @@ t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-07-27T16:41:48+08:00" content="2014-07-27">
-              2014-07-27
+            <time itemprop="dateCreated" datetime="2017-01-18T21:13:34+08:00" content="2017-01-18">
+              2017-01-18
             </time>
           </span>
 
@@ -274,8 +268,8 @@ t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/07/27/case-when-muti-field/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/27/case-when-muti-field/" itemprop="commentsCount"></span>
+                <a href="/2017/01/18/2016-summary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/18/2016-summary/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -298,14 +292,21 @@ t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用�
       
 
       
-        <p>使用case when语句从数据库中提取数据有时候会遇到需要返回多个字段的情况，但case when是不支持返回两个或以上的多个字段的，此时可以考虑使用字符串连接符“||”来解决问题。</p>
-<p>假设有两张数据库表：用户信息表t_user_info和用户的消费记录表t_paylist，如下表1、表2所示：</p>
-<p><img src="/img/case-when-muti-field1.jpg" alt="表1 t_user_info" title="表1 t_user_info"></p>
-<p><img src="/img/case-when-muti-field2.jpg" alt="表2 t_paylist" title="表2 t_paylist"></p>
-<p>t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用户在各个商户的消费记录，以表中的第一行为例，表示编号为1000的用户在位于后海大道的商户711消费了15元。</p>
-<p>现在从表t_user_info中提取10个用户，然后计算每个用户总共在多少个不同的商户有过消费行为以及总的消费金额，位于不同地方的相同连锁店算不同的商户。以表2中编号为1000的用户为例，计算返回的结果需为：商户数 3，总消费金额 169。在写SQL的时候需要注意的一个地方是，从表t_user_info中提取出来的10个用户可能个别用户并没有消费的记录，也即是说在表t_paylist中可能找不到对应的消费信息。</p>
-<p>这是一个需要根据userid进行group by计算的数据提取需求，由于部分用户可能没有消费记录，可以使用用户表left join消费记录表，而根据上面的需求，商户的区分需要根据shopname和shop_addr两个字段，且是在右表的userid为非空的时候才计算，这个可以使用case when进行判断，当右表的userid为非空时返回shopname和shop_addr两个字段。本文最开始的时候提到，case when是不支持返回两个或以上的多个字段的，此时可以使用字符串连接符“||”这个小技巧来连接shopname和shop_addr两个字段然后返回，以区分不同的商户。最终的SQL实现代码如下所示：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> l.userid,</div><div class="line">       <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> r.userid <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> r.shopname || r.shop_addr <span class="keyword">END</span>)) <span class="keyword">AS</span> shop_count,</div><div class="line">       <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> r.userid <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> r.paynum <span class="keyword">END</span>) <span class="keyword">AS</span> paynum_total</div><div class="line"><span class="keyword">FROM</span></div><div class="line">(</div><div class="line">    <span class="keyword">SELECT</span> userid</div><div class="line">    <span class="keyword">FROM</span>  t_user_info</div><div class="line">    <span class="keyword">LIMIT</span> <span class="number">10</span></div><div class="line">)l <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> t_paylist r <span class="keyword">ON</span> l.userid = r.userid</div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> l.userid</div></pre></td></tr></table></figure>
+        <p>2016，这一年，有点糟糕。</p>
+<p>这是进入工作的第三年，基本没有事情能取得突破，对未来感到愈发的焦虑。未来会怎么样，很难看清楚，但对于过去的一年，可以简单写一些。</p>
+<h1 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h1><p>无所建树，与希望达到的目标有很大的差距。</p>
+<p>年初工作内容作了调整，开始做大数据量化的项目，这是一个探索性的孵化项目。方向很好，是一个风口，但因为不同领导的期望不一致，导致项目做到最后是不伦不类，产出甚微。而从最开始公司大老板的说要投两千万到最后的团队差点解散，让人唏嘘。这其中，个人觉得，除了领导的原因，项目负责人也有很大的责任。做事情一旦阿谀奉承，加上其自身业务格局的缺乏，那结局基本就是一场灾难。</p>
+<p>下半年临近考核还和项目负责人吵了一架，那是一场对其不满的集中宣泄。之后认真想了很久，还是觉得这架吵得没错。工作中没法遇到“贵人”，但也不能让“小人”一直嚣张。</p>
+<h1 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h1><p>阅读量相较去年有了一个很大的提升，全年读了十二本书，平均一个月一本，达到了预期。</p>
+<p>电影也看了不少，全年看了十五部电影，但还是有好多想看的电影没有去看。发现自己依然是一个喜欢看电影的人。</p>
+<p>博文坚持写到九月份就断了，还欠16年三篇博文，我还在想用什么方式去把它们补回去好。生活平淡，缺乏写博文的素材。工作没什么长进，能够沉淀的知识点太少。这些都是让我焦虑的原因。</p>
+<p>年中部门团建去了一趟青海，这已经是我在国内所去过的最西、最北的地方了，脚下行过的路还太少，无以跟别人谈生活的深度。短途出行倒是比较多，顺德，香港，惠州，广州，周末得闲出去走走，寻觅美食，见见朋友，看看风景，也是不错。</p>
+<p>今年没有参加公司的联赛，但每周二的部门足球活动，基本没啥事都是必到。周末没啥事会去公司的健身房健健身。羽毛球今年好像没有打。</p>
+<h1 id="阿公去世"><a href="#阿公去世" class="headerlink" title="阿公去世"></a>阿公去世</h1><p>16年的倒数第二天，也即是12月30号，接到爸爸的电话，阿公去世。已经早有心理准备，所以也没那么震惊。在这之前因为阿公病危已经被通知过一次匆匆忙忙回家，后来竟然回光返照般好转，但我慈祥、仁爱的阿公，仍没能跨过16年。</p>
+<p>阿公在临走前，堂弟媳给堂弟生了个小男孩，四代同堂。爸爸说，告诉阿公这个消息的时候，阿公的神志还是清醒的。阿公肯定很开心他当上了曾祖父，我想，他一定是走得很安详。阿公生前一直说想看到我结婚，只是我不孝，直到阿公走之前，都没能让他如愿。</p>
+<p>我总是会想起读小学的时候，过年阿公总是会给我一百块压岁钱，那时候一百块可以买很多东西。我会拿一百块去订阅《故事大王》，还有去镇上买书看，像《童话大王》《童话世界》，还有各种各样的漫画书。阿公留给我的美好回忆，和这些书籍留给我的美好回忆交杂在一起，每次想起，总会眼前朦胧。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>16年更多的是焦虑和悲伤。对于17年如果有什么目标的话，我想，应该是专注吧。</p>
+
       
     </div>
 
@@ -327,9 +328,13 @@ t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用�
       
         <div class="post-tags">
           
-            <a href="/tags/数据库技术/" rel="tag">#数据库技术</a>
+            <a href="/tags/总结/" rel="tag">#总结</a>
           
-            <a href="/tags/SQL/" rel="tag">#SQL</a>
+            <a href="/tags/感想/" rel="tag">#感想</a>
+          
+            <a href="/tags/生活/" rel="tag">#生活</a>
+          
+            <a href="/tags/生死/" rel="tag">#生死</a>
           
         </div>
       
@@ -338,17 +343,13 @@ t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/06/29/case-when-use-case/" rel="next" title="Case when使用案例">
-                <i class="fa fa-chevron-left"></i> Case when使用案例
+              <a href="/2016/09/15/stock-tech-index/" rel="next" title="常用股票技术分析指标的计算方法">
+                <i class="fa fa-chevron-left"></i> 常用股票技术分析指标的计算方法
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2014/10/27/learn-data-visualization/" rel="prev" title="认识数据可视化">
-                认识数据可视化 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -374,8 +375,8 @@ t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2014/07/27/case-when-muti-field/"
-           data-title="Case when如何返回多个字段" data-url="http://yoursite.com/2014/07/27/case-when-muti-field/">
+      <div class="ds-thread" data-thread-key="2017/01/18/2016-summary/"
+           data-title="2016“桔盘点”" data-url="http://yoursite.com/2017/01/18/2016-summary/">
       </div>
     
   </div>
@@ -459,7 +460,7 @@ t_user_info存储用户的id、姓名和住址等信息，t_paylist记录了用�
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#工作"><span class="nav-number">1.</span> <span class="nav-text">工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生活"><span class="nav-number">2.</span> <span class="nav-text">生活</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#阿公去世"><span class="nav-number">3.</span> <span class="nav-text">阿公去世</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
           </div>
         </section>
