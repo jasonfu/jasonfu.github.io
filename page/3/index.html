@@ -235,6 +235,120 @@
             
               
                 
+                <a class="post-title-link" href="/2014/10/27/learn-data-visualization/" itemprop="url">
+                  认识数据可视化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-10-27T17:15:48+08:00" content="2014-10-27">
+              2014-10-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/10/27/learn-data-visualization/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/27/learn-data-visualization/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>做数据分析有时候需要对数据进行可视化展示，Excel是常用的数据可视化软件，对于常见的图表功能都能很好的支持，但Excel仅仅只是一个桌面端的数据可视化软件，对于网页端的数据可视化就显得无能为力，对于一些诸如Treemap树状图、和弦图、力导向布局图等之类的高级数据可视化需求也是支持不了的。下面我们就要讲讲Web端的数据可视化开发，以及介绍一些高级数据可视化的常用JS图表库。</p>
+<p>目前主流的Web端数据可视化解决方案基本都是基于JavaScript的，基于Flask的已经越来越少。HighCharts是一个用纯JavaScript编写的功能强大的图表库，支持柱状图、折线图、饼状图、散点图等常见的图表类型，非常出名，使用也很广泛。HighCharts虽然是国外的，但其中文社区已经很成熟，相关资料都可以查到中文的。国内比较出名的图表库有百度的ECharts，它也是纯JavaScript实现的。ECharts除了支持常见的柱状图之类的图表类型之外，还支持和弦图、力导向布局图、地图等高级图表类型。HighCharts和ECharts这两个图表库的使用都相当简单，阅读相关的API文档就可以快速上手，它们主要都是支持常见的基础图表功能开发。</p>
+<p><img src="/img/ldv1.png" alt="HighCharts的折线图" title="HighCharts的折线图"></p>
+<p><img src="/img/ldv2.png" alt="ECharts的柱状图" title="ECharts的柱状图"></p>
+<p>只有这些常见的基础图表功能是远远不够的，有时候我们还需要一些更加高级的数据可视化功能来生动、简明地展示复杂数据之间的关系，例如Treemap、Timeline、Heatmap、网络图等。D3 就是其中最流行的可视化库之一，支持很多高级的数据可视化功能，而且展示效果也都很炫，但较于前面的HighCharts或者ECharts，使用起来也相对要难。</p>
+<p><img src="/img/ldv3.png" alt="D3的和弦图" title="D3的和弦图"></p>
+<p>国内和D3的功能做得比较类似的是淘宝的dataV.js，但所支持的图表类型没有D3那么丰富，而且效果也相对要差。</p>
+<p><img src="/img/ldv4.png" alt="dataV的效果演示" title="dataV的效果演示"></p>
+<p>数据可视化的工具远不止上面提到的这些，还有iCharts、Google Charts、Crystal Reports、Bonsai、AnyChart等等很多，虽然同质化的比较多，但也各有特点，用户体验的不同主要体现在数据的加载速度和图表的展示效果。在实际的开发使用中，选择哪一个数据可视化工具可就要结合具体的开发需求和偏好来考虑了。例如，在开发移动端的图表时，考虑到终端设备的适配问题，有时候就不会考虑使用HighCharts这种前端的图表工具，而是会偏向于选择诸如JFreeChart之类的偏后端的图表绘制工具，在服务器端以图片的形式生成图表，然后发送到前端页面进行展示，以方便页面的适配。</p>
+<p>可能有人会质疑高级数据可视化的应用价值与开发成本之间的问题，用几个数据就可以说明的问题干嘛非得要花这么多时间去开发可视化的图表来展示，这么质疑其实也没错，但是要想到人是一种视觉动物，对图像留下的印象往往要比文字的要深，加上有些数据之间的关系单纯用数据和文字来说明是很费力的，这时候一个简单、生动的图表就有其存在的价值了。例如要描述一个国家的出口产品的比重，用一组数据就可以表述，但要是使用Treemap来展示的话可能就会显得更加的直观和生动，有助于快速地定位问题和发现重点，要是同时加上一些交互行为的话那就更perfect了，例如下面展示2009年贝宁出口产品构成的Treemap图：</p>
+<p><img src="/img/ldv5.png" alt="Treemap：2009年贝宁出口产品构成" title="Treemap：2009年贝宁出口产品构成"></p>
+<p><img src="/img/ldv6.png" alt="使用TimelineJS制作的一个历史事件时间轴" title="使用TimelineJS制作的一个历史事件时间轴"></p>
+<p>关于数据可视化的更多介绍以及更多的数据可视化案例介绍可以阅读这个博客：  <a href="http://blog.xiqiao.info/tag/infographics" target="_blank" rel="external">http://blog.xiqiao.info/tag/infographics</a></p>
+<p>欲想了解更多的数据可视化工具及其使用效果，可以访问这个链接：<a href="http://selection.datavisualization.ch/" target="_blank" rel="external">http://selection.datavisualization.ch/</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/07/27/case-when-muti-field/" itemprop="url">
                   Case when如何返回多个字段
                 </a>
@@ -690,119 +804,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2010/04/25/perfect-binary-search/" itemprop="url">
-                  一个优秀的二分搜索程序
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2010-04-25T15:54:34+08:00" content="2010-04-25">
-              2010-04-25
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2010/04/25/perfect-binary-search/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2010/04/25/perfect-binary-search/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近时常会翻阅《编程珠玑（第二版）》这本书，一次偶然的机会看到了一个效率很高的很优秀的二分搜索程序，忍不住在这里要和大家分享下。废话少说，现在进入主题。</p>
-<p>一般的二分搜索算法如下所示：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">l = <span class="number">0</span>; u = n<span class="number">-1</span></div><div class="line"></div><div class="line">loop</div><div class="line">    <span class="comment">/* invariant: if t is present, it is in x[l:u]*/</span></div><div class="line">    <span class="keyword">if</span> l &gt; u</div><div class="line">        p = <span class="number">-1</span>;<span class="keyword">break</span></div><div class="line">    m = ( l + u)/<span class="number">2</span></div><div class="line">    <span class="keyword">case</span></div><div class="line">    x[m] &lt; t: l = m+<span class="number">1</span></div><div class="line">    x[m] == t: p = m; <span class="keyword">break</span>	 </div><div class="line">    x[m] &gt; t: u = m<span class="number">-1</span></div></pre></td></tr></table></figure>
-<p>在上面所示的这段代码当中，针对一般的t没有重复出现且可以返回t出现的任意位置的情况是没问题的。但是若是要确定整数数组x[0..n-1]中t第一次出现的位置，且t在数组中是多次出现的话，上述代码则可能会返回其中的任意一个位置。上面我们将要给出的优化的代码的主循环与上面的程序类似；我们仍将使用下标l和u指示数组中包含t的部分，但不变式关系为x[l]<t<=x[u]和l<u。此外，我们假设n>=0,x[-1]<t以及x[n]>=t(但是程序并不访问者两个假想的元素)。现在的二分搜索代码如下所示：</t以及x[n]></t<=x[u]和l<u。此外，我们假设n></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">l = <span class="number">-1</span>; u = n</div><div class="line"><span class="keyword">while</span> l+<span class="number">1</span> != u</div><div class="line">    <span class="comment">/* invariant: x[l] &lt; t &amp;&amp; x[u] &gt;= t &amp;&amp; l &lt; u */</span></div><div class="line">    m = ( l + u)/<span class="number">2</span></div><div class="line">    <span class="keyword">if</span> x[m] &lt; t</div><div class="line">        l = m</div><div class="line">    <span class="keyword">else</span></div><div class="line">        u = m</div><div class="line">    <span class="comment">/* assert l+1 = u &amp;&amp; x[l] &lt; t &amp;&amp; x[u] &gt;= t*/</span></div><div class="line">    p = u</div><div class="line">    <span class="keyword">if</span> p &gt;= n || x[p] != t</div><div class="line">        p = <span class="number">-1</span></div></pre></td></tr></table></figure>
-<p>在上面所示代码中，循环重复时，由if语句来保持该不等式的正确性。当循环结束时，我们知道如果t存在于数组中，那么t的第一次出现在位置u。最后两个语句对p赋值：如果t在x中，那么将p置为t第一次出现的下标；如果t不在数组中，则将p置为-1。</p>
-<p>虽然第二个程序所解决的问题要比第一个程序所解决的问题更难，但却可能更高效：在每次循环迭代中，他只对t和x中的元素做一次比较，而原先的程序有时必须比较两次。当数据量比较大的时候，第二个程序的效率就比较明显了。一般而言，第二个程序的运行速度通常是第一个程序的2～3倍。</p>
-<p>好的程序设计让人回味无穷，就如同一杯好茶，喝完之后依旧让人荡气回肠。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -843,7 +849,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -890,7 +896,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
